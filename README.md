@@ -614,7 +614,7 @@
         recommendList: document.getElementById('recommend-list')
     };
 
-    // === SETUP AUDIO (HỆ THỐNG - ROBUST) ===
+    // === SETUP AUDIO (Hybrid: Google TTS -> System Fallback) ===
     function loadVoices() {
         availableVoices = window.speechSynthesis.getVoices();
     }
@@ -626,16 +626,42 @@
     loadVoices(); // Gọi ngay lần đầu
 
     function playAudio(text) {
+        // Cách 1: Thử dùng Google Translate TTS (Chất lượng cao, giống nhau mọi máy)
+        // URL này hoạt động tốt trên nhiều thiết bị nhưng có thể bị chặn ở một số mạng
+        const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(text)}`;
+        const audio = new Audio(audioUrl);
+        
+        audio.playbackRate = 0.9; // Tốc độ hơi chậm một chút để dễ nghe
+        
+        const playPromise = audio.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Google TTS failed, switching to System Audio");
+                // Nếu lỗi (mất mạng, CORS), chuyển sang giọng hệ thống
+                speakSystem(text);
+            });
+        }
+        
+        // Thêm xử lý lỗi khi loading file
+        audio.onerror = () => {
+             console.log("Audio load error, switching to System Audio");
+             speakSystem(text);
+        };
+    }
+
+    function speakSystem(text) {
         // Hủy âm thanh đang đọc (nếu có) để tránh chồng chéo
         window.speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(text);
         
         // --- CHIẾN THUẬT CHỌN GIỌNG ---
-        // 1. Ưu tiên tìm giọng Google (thường có trên Android/Chrome)
+        // 1. Ưu tiên tìm giọng "Premium" hoặc "Google" (thường có trên Android/Chrome)
         let preferredVoice = availableVoices.find(voice => 
-            voice.name.includes('Google US English') || 
-            voice.name.includes('Google UK English Female')
+            (voice.name.includes('Google') && voice.lang.includes('en')) || 
+            (voice.name.includes('Premium') && voice.lang.includes('en')) ||
+            (voice.name.includes('Samantha') && voice.lang.includes('en')) // iOS
         );
 
         // 2. Nếu không có, tìm giọng Anh-Anh (GB/UK)
@@ -652,8 +678,8 @@
 
         if (preferredVoice) utterance.voice = preferredVoice;
         
-        // Tốc độ 0.8 để nghe rõ và chậm rãi
-        utterance.rate = 0.8; 
+        // Tốc độ 0.9 để nghe rõ và chậm rãi nhưng không bị méo
+        utterance.rate = 0.9; 
         utterance.pitch = 1.0;
         utterance.volume = 1.0;
 
