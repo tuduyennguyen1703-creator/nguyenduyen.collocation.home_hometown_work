@@ -26,7 +26,7 @@
             min-height: 100vh;
             margin: 0;
             color: var(--text-color);
-            padding: 10px; /* Thêm padding cho body trên mobile */
+            padding: 10px;
             box-sizing: border-box;
         }
 
@@ -53,13 +53,13 @@
 
         .header-controls {
             display: flex;
-            gap: 15px; /* Tăng khoảng cách nút trên mobile */
+            gap: 10px; /* Khoảng cách nút */
         }
 
         .btn-icon {
             background: none;
             border: none;
-            font-size: 24px; /* Icon to hơn */
+            font-size: 22px; 
             cursor: pointer;
             color: var(--primary-color);
             padding: 5px;
@@ -90,7 +90,7 @@
             margin-bottom: 20px;
             color: #2c3e50;
             line-height: 1.4;
-            word-wrap: break-word; /* Tránh tràn chữ */
+            word-wrap: break-word; 
         }
 
         .hidden-content {
@@ -115,7 +115,7 @@
             font-weight: 800;
             text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
             margin: 0;
-            word-break: break-word; /* Xử lý từ dài trên mobile */
+            word-break: break-word; 
         }
 
         /* Nút nghe lại âm thanh */
@@ -123,7 +123,7 @@
             background: white;
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
-            width: 40px; /* To hơn chút để dễ bấm */
+            width: 40px; 
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
@@ -133,7 +133,7 @@
             justify-content: center;
             transition: all 0.2s;
             flex-shrink: 0;
-            -webkit-tap-highlight-color: transparent; /* Bỏ highlight xanh trên mobile */
+            -webkit-tap-highlight-color: transparent; 
         }
         .btn-audio-replay:hover {
             background: var(--primary-color);
@@ -169,7 +169,7 @@
         /* Buttons */
         .btn {
             border: none;
-            padding: 14px 20px; /* Padding dày hơn cho cảm ứng */
+            padding: 14px 20px; 
             font-size: 16px;
             font-weight: 600;
             border-radius: 50px;
@@ -203,7 +203,7 @@
             background-color: white;
             color: var(--primary-color);
             border: 2px solid var(--primary-color);
-            width: 55px; /* Nút điều hướng to hơn */
+            width: 55px; 
             height: 55px;
             border-radius: 50%;
             font-size: 22px;
@@ -253,14 +253,14 @@
             z-index: 100;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(2px); /* Hiệu ứng mờ nền */
+            backdrop-filter: blur(2px);
         }
 
         .modal-content {
             background: white;
             width: 90%;
             max-width: 400px;
-            max-height: 85vh; /* Tăng chiều cao tối đa */
+            max-height: 85vh; 
             border-radius: 15px;
             padding: 20px;
             display: flex;
@@ -281,13 +281,13 @@
         .list-container {
             overflow-y: auto;
             flex: 1;
-            -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+            -webkit-overflow-scrolling: touch; 
         }
 
         .list-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 10px; /* Tăng vùng chạm */
+            padding: 12px 10px; 
             border-bottom: 1px solid #f5f5f5;
             cursor: pointer;
             text-align: left;
@@ -331,43 +331,43 @@
             font-weight: 500;
         }
         .recommend-item:hover { background: #fff3e0; }
+        
+        /* Settings Modal Custom */
+        .settings-row {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .settings-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+        select.settings-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background: #fff;
+        }
+        input[type=range] {
+            width: 100%;
+            margin-top: 5px;
+        }
 
         /* --- RESPONSIVE MOBILE CONFIGURATION --- */
         @media (max-width: 480px) {
             .container {
-                padding: 20px; /* Giảm padding container */
+                padding: 20px;
             }
-            
-            .vietnamese-text {
-                font-size: 20px; /* Giảm cỡ chữ câu hỏi */
-            }
-
-            .english-word {
-                font-size: 26px; /* Giảm cỡ chữ đáp án */
-            }
-
-            .card {
-                min-height: 240px; /* Giảm chiều cao thẻ */
-            }
-
-            .btn {
-                font-size: 15px;
-                padding: 12px;
-            }
-
-            .btn-nav {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .header-controls {
-                gap: 10px;
-            }
-            
-            .btn-icon {
-                font-size: 22px;
-            }
+            .vietnamese-text { font-size: 20px; }
+            .english-word { font-size: 26px; }
+            .card { min-height: 240px; }
+            .btn { font-size: 15px; padding: 12px; }
+            .btn-nav { width: 45px; height: 45px; font-size: 18px; }
+            .header-controls { gap: 8px; }
+            .btn-icon { font-size: 22px; }
         }
 
         @keyframes fadeIn {
@@ -382,8 +382,9 @@
     <div class="header-row">
         <div class="header-controls">
             <button class="btn-icon" onclick="toggleList()" title="Danh sách từ">☰</button>
-            <button class="btn-icon" onclick="toggleStats()" title="Thống kê & Gợi ý">📊</button>
-            <button class="btn-icon" onclick="shuffleVocabulary()" title="Đảo thứ tự ngẫu nhiên">🔀</button>
+            <button class="btn-icon" onclick="toggleStats()" title="Thống kê">📊</button>
+            <button class="btn-icon" onclick="toggleSettings()" title="Cài đặt âm thanh">⚙️</button>
+            <button class="btn-icon" onclick="shuffleVocabulary()" title="Đảo thứ tự">🔀</button>
         </div>
         <div id="progress" class="progress-bar">CÂU 1 / 100</div>
     </div>
@@ -450,7 +451,6 @@
             <button onclick="toggleStats()" style="border:none; background:none; font-size:24px; cursor:pointer;">&times;</button>
         </div>
         
-        <!-- Summary Counts -->
         <div class="stats-summary">
             <div class="stat-box bg-learned">
                 <span class="stat-val" id="stat-learned">0</span>
@@ -467,10 +467,38 @@
         </div>
 
         <hr style="border:0; border-top:1px solid #eee; width:100%; margin: 10px 0;">
-        
-        <!-- Recommendations -->
         <h4 style="margin: 0 0 10px 0; color: #555;">💡 Từ cần học ngay:</h4>
         <div class="recommend-section" id="recommend-list"></div>
+    </div>
+</div>
+
+<!-- Modal Cài Đặt -->
+<div id="settings-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin:0; color:var(--primary-color)">Cài Đặt Âm Thanh</h3>
+            <button onclick="toggleSettings()" style="border:none; background:none; font-size:24px; cursor:pointer;">&times;</button>
+        </div>
+        
+        <div style="padding: 10px 0;">
+            <div class="settings-row">
+                <label class="settings-label">Chọn Giọng Đọc:</label>
+                <select id="voice-select" class="settings-input" onchange="updateVoiceSettings()">
+                    <option value="-1">Đang tải danh sách giọng...</option>
+                </select>
+            </div>
+            
+            <div class="settings-row">
+                <label class="settings-label">Tốc Độ Đọc: <span id="speed-display" style="color:var(--primary-color)">0.7</span></label>
+                <input type="range" id="speed-range" min="0.5" max="1.5" step="0.1" value="0.7" oninput="updateSpeedSettings()">
+                <div style="display:flex; justify-content:space-between; font-size:12px; color:#999; margin-top:5px;">
+                    <span>Chậm (0.5)</span>
+                    <span>Nhanh (1.5)</span>
+                </div>
+            </div>
+            
+            <button class="btn" style="width:100%; margin-top:10px;" onclick="testVoice()">🔊 Nghe thử</button>
+        </div>
     </div>
 </div>
 
@@ -586,12 +614,15 @@
         { en: "Last but not least", vi: "Cuối cùng nhưng không kém phần quan trọng", pos: "Phrase", ex: "And last but not least, I'd like to thank my parents." }
     ];
 
-    // Khởi tạo danh sách có trạng thái
     let vocabularyList = initialVocabulary.map(item => ({...item, status: 'new'}));
     
     let currentIndex = 0;
     let isRevealed = false;
     let availableVoices = [];
+    
+    // Global settings for audio
+    let selectedVoiceIndex = -1; // -1 means auto-detect
+    let readingRate = 0.7; // Default slow speed
 
     // Elements
     const elements = {
@@ -611,85 +642,108 @@
         statLearned: document.getElementById('stat-learned'),
         statLearning: document.getElementById('stat-learning'),
         statNew: document.getElementById('stat-new'),
-        recommendList: document.getElementById('recommend-list')
+        recommendList: document.getElementById('recommend-list'),
+        settingsModal: document.getElementById('settings-modal'),
+        voiceSelect: document.getElementById('voice-select'),
+        speedRange: document.getElementById('speed-range'),
+        speedDisplay: document.getElementById('speed-display')
     };
 
-    // === SETUP AUDIO (Hybrid: Google TTS -> System Fallback) ===
+    // === SETUP AUDIO (PURE SYSTEM SPEECH) ===
     function loadVoices() {
         availableVoices = window.speechSynthesis.getVoices();
+        
+        // Populate Dropdown
+        elements.voiceSelect.innerHTML = '';
+        
+        // Option Mặc định
+        const defaultOption = document.createElement('option');
+        defaultOption.value = -1;
+        defaultOption.text = "Tự động chọn (Tốt nhất)";
+        elements.voiceSelect.appendChild(defaultOption);
+
+        availableVoices.forEach((voice, index) => {
+            // Chỉ hiện các giọng có tiếng Anh để đỡ rối
+            if(voice.lang.includes('en')) {
+                const option = document.createElement('option');
+                option.value = index;
+                option.text = `${voice.name} (${voice.lang})`;
+                // Đánh dấu nếu đang được chọn
+                if (index === selectedVoiceIndex) option.selected = true;
+                elements.voiceSelect.appendChild(option);
+            }
+        });
     }
     
-    // Đảm bảo load giọng khi trình duyệt sẵn sàng
     if (speechSynthesis.onvoiceschanged !== undefined) {
         speechSynthesis.onvoiceschanged = loadVoices;
     }
-    loadVoices(); // Gọi ngay lần đầu
+    // Gọi lần đầu (đôi khi trình duyệt đã load xong rồi)
+    setTimeout(loadVoices, 100);
 
     function playAudio(text) {
-        // Cách 1: Thử dùng Google Translate TTS (Chất lượng cao, giống nhau mọi máy)
-        // URL này hoạt động tốt trên nhiều thiết bị nhưng có thể bị chặn ở một số mạng
-        const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(text)}`;
-        const audio = new Audio(audioUrl);
-        
-        audio.playbackRate = 0.9; // Tốc độ hơi chậm một chút để dễ nghe
-        
-        const playPromise = audio.play();
-
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log("Google TTS failed, switching to System Audio");
-                // Nếu lỗi (mất mạng, CORS), chuyển sang giọng hệ thống
-                speakSystem(text);
-            });
-        }
-        
-        // Thêm xử lý lỗi khi loading file
-        audio.onerror = () => {
-             console.log("Audio load error, switching to System Audio");
-             speakSystem(text);
-        };
-    }
-
-    function speakSystem(text) {
-        // Hủy âm thanh đang đọc (nếu có) để tránh chồng chéo
         window.speechSynthesis.cancel();
-
         const utterance = new SpeechSynthesisUtterance(text);
         
-        // --- CHIẾN THUẬT CHỌN GIỌNG ---
-        // 1. Ưu tiên tìm giọng "Premium" hoặc "Google" (thường có trên Android/Chrome)
-        let preferredVoice = availableVoices.find(voice => 
-            (voice.name.includes('Google') && voice.lang.includes('en')) || 
-            (voice.name.includes('Premium') && voice.lang.includes('en')) ||
-            (voice.name.includes('Samantha') && voice.lang.includes('en')) // iOS
-        );
-
-        // 2. Nếu không có, tìm giọng Anh-Anh (GB/UK)
-        if (!preferredVoice) {
-            preferredVoice = availableVoices.find(voice => 
-                voice.lang === 'en-GB' || voice.lang === 'en_GB'
+        // Xác định giọng đọc
+        if (selectedVoiceIndex !== -1 && availableVoices[selectedVoiceIndex]) {
+            // Người dùng đã chọn giọng cụ thể
+            utterance.voice = availableVoices[selectedVoiceIndex];
+        } else {
+            // Tự động chọn (Ưu tiên Google / Premium / UK)
+            let preferredVoice = availableVoices.find(voice => 
+                (voice.name.includes('Google') && voice.lang.includes('en')) || 
+                (voice.name.includes('Premium') && voice.lang.includes('en')) ||
+                (voice.name.includes('Samantha') && voice.lang.includes('en'))
             );
-        }
 
-        // 3. Cuối cùng, lấy bất kỳ giọng tiếng Anh nào
-        if (!preferredVoice) {
-            preferredVoice = availableVoices.find(voice => voice.lang.includes('en'));
-        }
+            if (!preferredVoice) {
+                preferredVoice = availableVoices.find(voice => voice.lang === 'en-GB' || voice.lang === 'en_GB');
+            }
+            if (!preferredVoice) {
+                preferredVoice = availableVoices.find(voice => voice.lang.includes('en'));
+            }
 
-        if (preferredVoice) utterance.voice = preferredVoice;
+            if (preferredVoice) utterance.voice = preferredVoice;
+        }
         
-        // Tốc độ 0.9 để nghe rõ và chậm rãi nhưng không bị méo
-        utterance.rate = 0.9; 
+        // Áp dụng tốc độ
+        utterance.rate = readingRate; 
         utterance.pitch = 1.0;
         utterance.volume = 1.0;
 
-        // Xử lý sự kiện lỗi hoặc kết thúc (để debug nếu cần)
         utterance.onerror = (e) => console.log('Speech error:', e);
-
         window.speechSynthesis.speak(utterance);
     }
 
-    // --- LOGIC ĐẢO TỪ ---
+    // --- SETTINGS FUNCTIONS ---
+    function toggleSettings() {
+        const isHidden = elements.settingsModal.style.display === 'none' || elements.settingsModal.style.display === '';
+        if (isHidden) {
+            elements.settingsModal.style.display = 'flex';
+            // Refresh voice list in case it wasn't loaded
+            if(availableVoices.length === 0) loadVoices();
+        } else {
+            elements.settingsModal.style.display = 'none';
+        }
+    }
+
+    function updateVoiceSettings() {
+        selectedVoiceIndex = parseInt(elements.voiceSelect.value);
+        // Lưu ý: Không cần lưu localStorage vì đề bài không yêu cầu, 
+        // nhưng biến selectedVoiceIndex là toàn cục nên sẽ áp dụng cho mọi từ.
+    }
+
+    function updateSpeedSettings() {
+        readingRate = parseFloat(elements.speedRange.value);
+        elements.speedDisplay.innerText = readingRate;
+    }
+    
+    function testVoice() {
+        playAudio("Hello, this is a test for English voice.");
+    }
+
+    // --- OTHER LOGIC ---
     function shuffleVocabulary() {
         for (let i = vocabularyList.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -701,7 +755,6 @@
         setTimeout(() => elements.statusMsg.innerText = "", 2000);
     }
 
-    // --- CORE FUNCTIONS ---
     function loadCard(index) {
         if (index < 0) currentIndex = vocabularyList.length - 1;
         else if (index >= vocabularyList.length) currentIndex = 0;
@@ -745,10 +798,7 @@
         isRevealed = true;
         elements.btnReveal.disabled = true;
         elements.answerArea.style.display = 'block';
-        
-        // Tự động đọc khi mở đáp án
         playAudio(vocabularyList[currentIndex].en);
-        
         elements.btnReveal.style.display = 'none'; 
         elements.reviewActions.style.display = 'flex'; 
     }
@@ -767,7 +817,6 @@
         loadCard(currentIndex + step);
     }
 
-    // --- LIST MODAL FUNCTIONS ---
     function toggleList() {
         const isHidden = elements.listModal.style.display === 'none' || elements.listModal.style.display === '';
         if (isHidden) {
@@ -783,62 +832,31 @@
         vocabularyList.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = `list-item ${index === currentIndex ? 'active' : ''}`;
-            
             let statusIcon = '⚪';
             if (item.status === 'learned') statusIcon = '✅';
             if (item.status === 'learning') statusIcon = '🔸';
-
-            div.innerHTML = `
-                <div style="display:flex; align-items:center;">
-                    <span style="margin-right:8px; font-size: 12px;">${statusIcon}</span>
-                    <strong>${item.en}</strong>
-                </div>
-                <div style="font-size:12px; color:#666;">${index + 1}</div>
-            `;
-            div.onclick = () => {
-                currentIndex = index;
-                loadCard(currentIndex);
-                toggleList();
-            };
+            div.innerHTML = `<div style="display:flex; align-items:center;"><span style="margin-right:8px; font-size: 12px;">${statusIcon}</span><strong>${item.en}</strong></div><div style="font-size:12px; color:#666;">${index + 1}</div>`;
+            div.onclick = () => { currentIndex = index; loadCard(currentIndex); toggleList(); };
             elements.listContent.appendChild(div);
         });
     }
 
-    // --- STATS MODAL FUNCTIONS ---
     function toggleStats() {
         const isHidden = elements.statsModal.style.display === 'none' || elements.statsModal.style.display === '';
-        if (isHidden) {
-            renderStats();
-            elements.statsModal.style.display = 'flex';
-        } else {
-            elements.statsModal.style.display = 'none';
-        }
+        if (isHidden) { renderStats(); elements.statsModal.style.display = 'flex'; } else { elements.statsModal.style.display = 'none'; }
     }
 
     function renderStats() {
-        // 1. Calculate counts
         const learnedCount = vocabularyList.filter(i => i.status === 'learned').length;
         const learningCount = vocabularyList.filter(i => i.status === 'learning').length;
         const newCount = vocabularyList.filter(i => i.status === 'new').length;
-
         elements.statLearned.innerText = learnedCount;
         elements.statLearning.innerText = learningCount;
         elements.statNew.innerText = newCount;
-
-        // 2. Recommendations (Priority: Learning -> New)
-        let recommendItems = vocabularyList
-            .map((item, index) => ({ ...item, originalIndex: index })) // Keep track of original index
-            .filter(i => i.status === 'learning');
-
+        let recommendItems = vocabularyList.map((item, index) => ({ ...item, originalIndex: index })).filter(i => i.status === 'learning');
         elements.recommendList.innerHTML = '';
-
         if (recommendItems.length === 0) {
-            // If no "learning", suggest "new"
-            const newItems = vocabularyList
-                .map((item, index) => ({ ...item, originalIndex: index }))
-                .filter(i => i.status === 'new')
-                .slice(0, 5); // Take top 5 new
-            
+            const newItems = vocabularyList.map((item, index) => ({ ...item, originalIndex: index })).filter(i => i.status === 'new').slice(0, 5);
             if (newItems.length > 0) {
                 elements.recommendList.innerHTML = '<div style="color:#777; font-style:italic; padding:10px;">Bạn đã thuộc hết các từ cần ôn. Hãy học từ mới:</div>';
                 newItems.forEach(item => createRecommendItem(item));
@@ -854,17 +872,11 @@
         const div = document.createElement('div');
         div.className = 'recommend-item';
         div.innerHTML = `🔸 <strong>${item.en}</strong> <span style="font-size:12px; color:#999;">(${item.vi})</span>`;
-        div.onclick = () => {
-            currentIndex = item.originalIndex; // Jump to original index
-            loadCard(currentIndex);
-            toggleStats();
-        };
+        div.onclick = () => { currentIndex = item.originalIndex; loadCard(currentIndex); toggleStats(); };
         elements.recommendList.appendChild(div);
     }
 
-    // Start
     loadCard(0);
-
 </script>
 
 </body>
