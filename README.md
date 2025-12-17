@@ -1,4 +1,4 @@
-Speaking_English
+Speaking English
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -105,7 +105,7 @@ Speaking_English
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin: 10px 0;
+            margin: 5px 0; /* Giảm margin để nhường chỗ cho IPA */
             flex-wrap: wrap;
         }
 
@@ -116,6 +116,15 @@ Speaking_English
             text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
             margin: 0;
             word-break: break-word; 
+        }
+
+        /* Style cho phiên âm IPA */
+        .ipa-text {
+            font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', sans-serif;
+            font-size: 18px;
+            color: #757575;
+            margin-bottom: 10px;
+            font-weight: 400;
         }
 
         /* Nút nghe lại âm thanh */
@@ -144,7 +153,7 @@ Speaking_English
         .part-of-speech {
             font-style: italic;
             color: #c62828;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-size: 14px;
             background: var(--accent-light);
             padding: 5px 12px;
@@ -407,6 +416,9 @@ Speaking_English
                 <div class="english-word" id="en-text"></div>
                 <button class="btn-audio-replay" onclick="playCurrentAudio()" title="Nghe lại">🔊</button>
             </div>
+            
+            <!-- Phiên âm IPA -->
+            <div class="ipa-text" id="ipa-text"></div>
 
             <div class="example-box" id="example-text"></div>
         </div>
@@ -506,112 +518,112 @@ Speaking_English
     // === DỮ LIỆU TỪ VỰNG 100 CÂU ===
     const initialVocabulary = [
         // --- 1. WORK & STUDY ---
-        { en: "Major in", vi: "Chuyên ngành về...", pos: "Verb Phrase", ex: "I decided to major in Marketing to understand consumer behavior." },
-        { en: "Prestigious university", vi: "Trường đại học danh tiếng", pos: "Noun Phrase", ex: "Graduating from a prestigious university can open many doors." },
-        { en: "Pursue a career in", vi: "Theo đuổi sự nghiệp trong lĩnh vực...", pos: "Verb Phrase", ex: "She wants to pursue a career in digital journalism." },
-        { en: "Land a job", vi: "Kiếm được công việc", pos: "Verb Phrase", ex: "He managed to land a job at Google right after graduation." },
-        { en: "9-to-5 job", vi: "Công việc hành chính", pos: "Noun Phrase", ex: "I prefer a stable 9-to-5 job over freelancing." },
-        { en: "Full-time / Part-time", vi: "Toàn thời gian / Bán thời gian", pos: "Adjective", ex: "Students often find part-time jobs to cover their living expenses." },
-        { en: "Work environment", vi: "Môi trường làm việc", pos: "Noun Phrase", ex: "A toxic work environment significantly affects employee productivity." },
-        { en: "Colleagues / Coworkers", vi: "Đồng nghiệp", pos: "Noun", ex: "My colleagues are very friendly and always willing to help." },
-        { en: "Supportive", vi: "Hỗ trợ, giúp đỡ nhau", pos: "Adjective", ex: "The teachers at this school are very supportive of their students." },
-        { en: "State-of-the-art facilities", vi: "Cơ sở vật chất hiện đại", pos: "Noun Phrase", ex: "The research lab is equipped with state-of-the-art facilities." },
-        { en: "Heavy workload", vi: "Khối lượng công việc lớn", pos: "Noun Phrase", ex: "I am dealing with a heavy workload this quarter." },
-        { en: "Meet a deadline", vi: "Kịp hạn chót", pos: "Verb Phrase", ex: "We must work overtime to meet the deadline." },
-        { en: "Work under pressure", vi: "Làm việc dưới áp lực", pos: "Verb Phrase", ex: "Being able to work under pressure is a required skill for this job." },
-        { en: "Hectic schedule", vi: "Lịch trình bận rộn", pos: "Noun Phrase", ex: "Despite his hectic schedule, he always finds time for his family." },
-        { en: "Up to my ears in work", vi: "Bận ngập đầu", pos: "Idiom", ex: "I can't go out tonight, I'm up to my ears in work." },
-        { en: "Burn the midnight oil", vi: "Thức khuya làm việc/học bài", pos: "Idiom", ex: "She burnt the midnight oil to finish her thesis." },
-        { en: "Pass with flying colors", vi: "Đậu điểm cao", pos: "Idiom", ex: "He prepared well and passed the exam with flying colors." },
-        { en: "Challenging but rewarding", vi: "Thử thách nhưng xứng đáng", pos: "Adjective Phrase", ex: "Teaching children is challenging but rewarding." },
-        { en: "Broaden my horizons", vi: "Mở rộng tầm mắt/kiến thức", pos: "Verb Phrase", ex: "Traveling to new countries helps broaden my horizons." },
-        { en: "Practical experience", vi: "Kinh nghiệm thực tế", pos: "Noun Phrase", ex: "Internships provide students with valuable practical experience." },
-        { en: "Lucrative income", vi: "Thu nhập cao/hậu hĩnh", pos: "Noun Phrase", ex: "The IT industry offers a very lucrative income." },
-        { en: "Make a living", vi: "Kiếm sống", pos: "Verb Phrase", ex: "It's becoming harder to make a living as an artist." },
-        { en: "Cover my bills", vi: "Trang trải chi phí sinh hoạt", pos: "Verb Phrase", ex: "I need a second job to cover my bills." },
-        { en: "Promotion opportunities", vi: "Cơ hội thăng tiến", pos: "Noun Phrase", ex: "This company offers great promotion opportunities for hard workers." },
-        { en: "Get promoted", vi: "Được thăng chức", pos: "Verb Phrase", ex: "She got promoted to Senior Manager last month." },
-        { en: "Soft skills", vi: "Kỹ năng mềm", pos: "Noun Phrase", ex: "Communication and teamwork are essential soft skills." },
-        { en: "Teamwork spirit", vi: "Tinh thần đồng đội", pos: "Noun Phrase", ex: "The manager values strong teamwork spirit in the office." },
-        { en: "Job satisfaction", vi: "Sự hài lòng trong công việc", pos: "Noun Phrase", ex: "For me, job satisfaction is more important than a high salary." },
-        { en: "Stable job", vi: "Công việc ổn định", pos: "Noun Phrase", ex: "My parents want me to have a stable job in the government." },
-        { en: "Gap year", vi: "Năm nghỉ phép để trải nghiệm", pos: "Noun", ex: "I took a gap year to travel across Europe before starting university." },
+        { en: "Major in", vi: "Chuyên ngành về...", ipa: "/ˈmeɪdʒər ɪn/", pos: "Verb Phrase", ex: "I decided to major in Marketing to understand consumer behavior." },
+        { en: "Prestigious university", vi: "Trường đại học danh tiếng", ipa: "/prɛˈstɪdʒəs ˌjuːnɪˈvɜːrsəti/", pos: "Noun Phrase", ex: "Graduating from a prestigious university can open many doors." },
+        { en: "Pursue a career in", vi: "Theo đuổi sự nghiệp trong lĩnh vực...", ipa: "/pərˈsuː ə kəˈrɪər ɪn/", pos: "Verb Phrase", ex: "She wants to pursue a career in digital journalism." },
+        { en: "Land a job", vi: "Kiếm được công việc", ipa: "/lænd ə dʒɒb/", pos: "Verb Phrase", ex: "He managed to land a job at Google right after graduation." },
+        { en: "9-to-5 job", vi: "Công việc hành chính", ipa: "/ˌnaɪn.təˈfaɪv dʒɒb/", pos: "Noun Phrase", ex: "I prefer a stable 9-to-5 job over freelancing." },
+        { en: "Full-time / Part-time", vi: "Toàn thời gian / Bán thời gian", ipa: "/ˌfʊlˈtaɪm / ˌpɑːrtˈtaɪm/", pos: "Adjective", ex: "Students often find part-time jobs to cover their living expenses." },
+        { en: "Work environment", vi: "Môi trường làm việc", ipa: "/wɜːrk ɪnˈvaɪrənmənt/", pos: "Noun Phrase", ex: "A toxic work environment significantly affects employee productivity." },
+        { en: "Colleagues / Coworkers", vi: "Đồng nghiệp", ipa: "/ˈkɒliːɡz / ˈkoʊˌwɜːrkərz/", pos: "Noun", ex: "My colleagues are very friendly and always willing to help." },
+        { en: "Supportive", vi: "Hỗ trợ, giúp đỡ nhau", ipa: "/səˈpɔːrtɪv/", pos: "Adjective", ex: "The teachers at this school are very supportive of their students." },
+        { en: "State-of-the-art facilities", vi: "Cơ sở vật chất hiện đại", ipa: "/ˌsteɪt.əv.ðiˈɑːrt fəˈsɪlətiz/", pos: "Noun Phrase", ex: "The research lab is equipped with state-of-the-art facilities." },
+        { en: "Heavy workload", vi: "Khối lượng công việc lớn", ipa: "/ˈhɛvi ˈwɜːrkloʊd/", pos: "Noun Phrase", ex: "I am dealing with a heavy workload this quarter." },
+        { en: "Meet a deadline", vi: "Kịp hạn chót", ipa: "/miːt ə ˈdɛdlaɪn/", pos: "Verb Phrase", ex: "We must work overtime to meet the deadline." },
+        { en: "Work under pressure", vi: "Làm việc dưới áp lực", ipa: "/wɜːrk ˈʌndər ˈprɛʃər/", pos: "Verb Phrase", ex: "Being able to work under pressure is a required skill for this job." },
+        { en: "Hectic schedule", vi: "Lịch trình bận rộn", ipa: "/ˈhɛktɪk ˈʃɛdjuːl/", pos: "Noun Phrase", ex: "Despite his hectic schedule, he always finds time for his family." },
+        { en: "Up to my ears in work", vi: "Bận ngập đầu", ipa: "/ʌp tu maɪ ɪərz ɪn wɜːrk/", pos: "Idiom", ex: "I can't go out tonight, I'm up to my ears in work." },
+        { en: "Burn the midnight oil", vi: "Thức khuya làm việc/học bài", ipa: "/bɜːrn ðə ˈmɪdnaɪt ɔɪl/", pos: "Idiom", ex: "She burnt the midnight oil to finish her thesis." },
+        { en: "Pass with flying colors", vi: "Đậu điểm cao", ipa: "/pæs wɪð ˈflaɪɪŋ ˈkʌlərz/", pos: "Idiom", ex: "He prepared well and passed the exam with flying colors." },
+        { en: "Challenging but rewarding", vi: "Thử thách nhưng xứng đáng", ipa: "/ˈtʃælɪndʒɪŋ bʌt rɪˈwɔːrdɪŋ/", pos: "Adjective Phrase", ex: "Teaching children is challenging but rewarding." },
+        { en: "Broaden my horizons", vi: "Mở rộng tầm mắt/kiến thức", ipa: "/ˈbrɔːdn maɪ həˈraɪzənz/", pos: "Verb Phrase", ex: "Traveling to new countries helps broaden my horizons." },
+        { en: "Practical experience", vi: "Kinh nghiệm thực tế", ipa: "/ˈpræktɪkl ɪkˈspɪəriəns/", pos: "Noun Phrase", ex: "Internships provide students with valuable practical experience." },
+        { en: "Lucrative income", vi: "Thu nhập cao/hậu hĩnh", ipa: "/ˈluːkrətɪv ˈɪnkʌm/", pos: "Noun Phrase", ex: "The IT industry offers a very lucrative income." },
+        { en: "Make a living", vi: "Kiếm sống", ipa: "/meɪk ə ˈlɪvɪŋ/", pos: "Verb Phrase", ex: "It's becoming harder to make a living as an artist." },
+        { en: "Cover my bills", vi: "Trang trải chi phí sinh hoạt", ipa: "/ˈkʌvər maɪ bɪlz/", pos: "Verb Phrase", ex: "I need a second job to cover my bills." },
+        { en: "Promotion opportunities", vi: "Cơ hội thăng tiến", ipa: "/prəˈmoʊʃn ˌɒpərˈtuːnətiz/", pos: "Noun Phrase", ex: "This company offers great promotion opportunities for hard workers." },
+        { en: "Get promoted", vi: "Được thăng chức", ipa: "/ɡɛt prəˈmoʊtɪd/", pos: "Verb Phrase", ex: "She got promoted to Senior Manager last month." },
+        { en: "Soft skills", vi: "Kỹ năng mềm", ipa: "/sɒft skɪlz/", pos: "Noun Phrase", ex: "Communication and teamwork are essential soft skills." },
+        { en: "Teamwork spirit", vi: "Tinh thần đồng đội", ipa: "/ˈtiːmwɜːrk ˈspɪrɪt/", pos: "Noun Phrase", ex: "The manager values strong teamwork spirit in the office." },
+        { en: "Job satisfaction", vi: "Sự hài lòng trong công việc", ipa: "/dʒɒb ˌsætɪsˈfækʃn/", pos: "Noun Phrase", ex: "For me, job satisfaction is more important than a high salary." },
+        { en: "Stable job", vi: "Công việc ổn định", ipa: "/ˈsteɪbl dʒɒb/", pos: "Noun Phrase", ex: "My parents want me to have a stable job in the government." },
+        { en: "Gap year", vi: "Năm nghỉ phép để trải nghiệm", ipa: "/ɡæp jɪər/", pos: "Noun", ex: "I took a gap year to travel across Europe before starting university." },
 
         // --- 2. HOMETOWN ---
-        { en: "Located in / Situated in", vi: "Nằm ở...", pos: "Verb Phrase", ex: "My hometown is situated in the coastal region of Vietnam." },
-        { en: "Coastal city", vi: "Thành phố biển", pos: "Noun Phrase", ex: "Da Nang is a beautiful coastal city famous for its beaches." },
-        { en: "Mountainous area", vi: "Khu vực miền núi", pos: "Noun Phrase", ex: "Living in a mountainous area offers fresh air but travel can be difficult." },
-        { en: "The suburbs / Outskirts", vi: "Vùng ngoại ô", pos: "Noun", ex: "I live in the suburbs, so it takes me 30 minutes to drive to the city center." },
-        { en: "Heart of the city", vi: "Trung tâm thành phố", pos: "Noun Phrase", ex: "My apartment is right in the heart of the city." },
-        { en: "Industrial zone", vi: "Khu công nghiệp", pos: "Noun Phrase", ex: "There is a large industrial zone near my town providing jobs for locals." },
-        { en: "Tourist attraction", vi: "Điểm thu hút du lịch", pos: "Noun Phrase", ex: "Ha Long Bay is a major tourist attraction in Vietnam." },
-        { en: "Picturesque landscapes", vi: "Phong cảnh đẹp như tranh", pos: "Noun Phrase", ex: "Sapa is known for its picturesque landscapes and terraced rice fields." },
-        { en: "Breathtaking view", vi: "Cảnh đẹp nín thở", pos: "Noun Phrase", ex: "The hotel room offers a breathtaking view of the ocean." },
-        { en: "Historical sites", vi: "Di tích lịch sử", pos: "Noun Phrase", ex: "Hue is famous for its many historical sites and ancient tombs." },
-        { en: "Pace of life", vi: "Nhịp sống", pos: "Noun Phrase", ex: "The pace of life in the countryside is much slower than in the city." },
-        { en: "Hustle and bustle", vi: "Sự hối hả nhộn nhịp", pos: "Idiom/Noun", ex: "I enjoy the hustle and bustle of city life." },
-        { en: "Tranquil / Peaceful", vi: "Yên bình", pos: "Adjective", ex: "I love the tranquil atmosphere of my village." },
-        { en: "Fresh air", vi: "Không khí trong lành", pos: "Noun Phrase", ex: "We went to the park to breathe some fresh air." },
-        { en: "Polluted", vi: "Ô nhiễm", pos: "Adjective", ex: "The air in big cities is becoming heavily polluted." },
-        { en: "Traffic congestion", vi: "Tắc đường", pos: "Noun Phrase", ex: "Traffic congestion is a serious problem during rush hour." },
-        { en: "Commute", vi: "Việc đi lại (từ nhà đến chỗ làm)", pos: "Noun/Verb", ex: "My daily commute takes about 45 minutes by bus." },
-        { en: "Crowded / Packed", vi: "Đông đúc", pos: "Adjective", ex: "The streets are always crowded during festivals." },
-        { en: "Vibrant", vi: "Sôi động, đầy sức sống", pos: "Adjective", ex: "Ho Chi Minh City has a vibrant nightlife." },
-        { en: "Dull / Boring", vi: "Nhàm chán", pos: "Adjective", ex: "Some people find life in the countryside a bit dull." },
-        { en: "Hospitable", vi: "Hiếu khách", pos: "Adjective", ex: "The local people are incredibly hospitable to tourists." },
-        { en: "Friendly and welcoming", vi: "Thân thiện và chào đón", pos: "Adjective Phrase", ex: "My neighbors are very friendly and welcoming." },
-        { en: "Sense of community", vi: "Tinh thần cộng đồng", pos: "Noun Phrase", ex: "There is a strong sense of community in this small town." },
-        { en: "Local delicacies", vi: "Đặc sản địa phương", pos: "Noun Phrase", ex: "You must try the local delicacies when you visit Hanoi." },
-        { en: "Street food", vi: "Đồ ăn đường phố", pos: "Noun Phrase", ex: "Vietnam is famous for its delicious and cheap street food." },
-        { en: "Amenities", vi: "Các tiện ích", pos: "Noun", ex: "The apartment complex has excellent amenities like a pool and gym." },
-        { en: "Entertainment centers", vi: "Khu vui chơi giải trí", pos: "Noun Phrase", ex: "Young people often hang out at entertainment centers on weekends." },
-        { en: "Public transport system", vi: "Hệ thống giao thông công cộng", pos: "Noun Phrase", ex: "The city needs to improve its public transport system." },
-        { en: "Shopping mall", vi: "Trung tâm thương mại", pos: "Noun Phrase", ex: "We spent the whole afternoon at the shopping mall." },
-        { en: "Undergo dramatic changes", vi: "Trải qua thay đổi mạnh mẽ", pos: "Verb Phrase", ex: "My hometown has undergone dramatic changes in the last decade." },
+        { en: "Located in / Situated in", vi: "Nằm ở...", ipa: "/loʊˈkeɪtɪd ɪn / ˈsɪtʃueɪtɪd ɪn/", pos: "Verb Phrase", ex: "My hometown is situated in the coastal region of Vietnam." },
+        { en: "Coastal city", vi: "Thành phố biển", ipa: "/ˈkoʊstl ˈsɪti/", pos: "Noun Phrase", ex: "Da Nang is a beautiful coastal city famous for its beaches." },
+        { en: "Mountainous area", vi: "Khu vực miền núi", ipa: "/ˈmaʊntənəs ˈeriə/", pos: "Noun Phrase", ex: "Living in a mountainous area offers fresh air but travel can be difficult." },
+        { en: "The suburbs / Outskirts", vi: "Vùng ngoại ô", ipa: "/ðə ˈsʌbɜːrbz / ˈaʊtskɜːrts/", pos: "Noun", ex: "I live in the suburbs, so it takes me 30 minutes to drive to the city center." },
+        { en: "Heart of the city", vi: "Trung tâm thành phố", ipa: "/hɑːrt əv ðə ˈsɪti/", pos: "Noun Phrase", ex: "My apartment is right in the heart of the city." },
+        { en: "Industrial zone", vi: "Khu công nghiệp", ipa: "/ɪnˈdʌstriəl zoʊn/", pos: "Noun Phrase", ex: "There is a large industrial zone near my town providing jobs for locals." },
+        { en: "Tourist attraction", vi: "Điểm thu hút du lịch", ipa: "/ˈtʊərɪst əˈtrækʃn/", pos: "Noun Phrase", ex: "Ha Long Bay is a major tourist attraction in Vietnam." },
+        { en: "Picturesque landscapes", vi: "Phong cảnh đẹp như tranh", ipa: "/ˌpɪktʃəˈrɛsk ˈlændskeɪps/", pos: "Noun Phrase", ex: "Sapa is known for its picturesque landscapes and terraced rice fields." },
+        { en: "Breathtaking view", vi: "Cảnh đẹp nín thở", ipa: "/ˈbrɛθteɪkɪŋ vjuː/", pos: "Noun Phrase", ex: "The hotel room offers a breathtaking view of the ocean." },
+        { en: "Historical sites", vi: "Di tích lịch sử", ipa: "/hɪˈstɔːrɪkl saɪts/", pos: "Noun Phrase", ex: "Hue is famous for its many historical sites and ancient tombs." },
+        { en: "Pace of life", vi: "Nhịp sống", ipa: "/peɪs əv laɪf/", pos: "Noun Phrase", ex: "The pace of life in the countryside is much slower than in the city." },
+        { en: "Hustle and bustle", vi: "Sự hối hả nhộn nhịp", ipa: "/ˈhʌsl ənd ˈbʌsl/", pos: "Idiom/Noun", ex: "I enjoy the hustle and bustle of city life." },
+        { en: "Tranquil / Peaceful", vi: "Yên bình", ipa: "/ˈtræŋkwɪl / ˈpiːsfl/", pos: "Adjective", ex: "I love the tranquil atmosphere of my village." },
+        { en: "Fresh air", vi: "Không khí trong lành", ipa: "/frɛʃ ɛər/", pos: "Noun Phrase", ex: "We went to the park to breathe some fresh air." },
+        { en: "Polluted", vi: "Ô nhiễm", ipa: "/pəˈluːtɪd/", pos: "Adjective", ex: "The air in big cities is becoming heavily polluted." },
+        { en: "Traffic congestion", vi: "Tắc đường", ipa: "/ˈtræfɪk kənˈdʒɛstʃən/", pos: "Noun Phrase", ex: "Traffic congestion is a serious problem during rush hour." },
+        { en: "Commute", vi: "Việc đi lại (từ nhà đến chỗ làm)", ipa: "/kəˈmjuːt/", pos: "Noun/Verb", ex: "My daily commute takes about 45 minutes by bus." },
+        { en: "Crowded / Packed", vi: "Đông đúc", ipa: "/ˈkraʊdɪd / pækt/", pos: "Adjective", ex: "The streets are always crowded during festivals." },
+        { en: "Vibrant", vi: "Sôi động, đầy sức sống", ipa: "/ˈvaɪbrənt/", pos: "Adjective", ex: "Ho Chi Minh City has a vibrant nightlife." },
+        { en: "Dull / Boring", vi: "Nhàm chán", ipa: "/dʌl / ˈbɔːrɪŋ/", pos: "Adjective", ex: "Some people find life in the countryside a bit dull." },
+        { en: "Hospitable", vi: "Hiếu khách", ipa: "/hɒˈspɪtəbl/", pos: "Adjective", ex: "The local people are incredibly hospitable to tourists." },
+        { en: "Friendly and welcoming", vi: "Thân thiện và chào đón", ipa: "/ˈfrɛndli ənd ˈwɛlkəmɪŋ/", pos: "Adjective Phrase", ex: "My neighbors are very friendly and welcoming." },
+        { en: "Sense of community", vi: "Tinh thần cộng đồng", ipa: "/sɛns əv kəˈmjuːnəti/", pos: "Noun Phrase", ex: "There is a strong sense of community in this small town." },
+        { en: "Local delicacies", vi: "Đặc sản địa phương", ipa: "/ˈloʊkl ˈdɛlɪkəsiz/", pos: "Noun Phrase", ex: "You must try the local delicacies when you visit Hanoi." },
+        { en: "Street food", vi: "Đồ ăn đường phố", ipa: "/striːt fuːd/", pos: "Noun Phrase", ex: "Vietnam is famous for its delicious and cheap street food." },
+        { en: "Amenities", vi: "Các tiện ích", ipa: "/əˈmiːnətiz/", pos: "Noun", ex: "The apartment complex has excellent amenities like a pool and gym." },
+        { en: "Entertainment centers", vi: "Khu vui chơi giải trí", ipa: "/ˌɛntərˈteɪnmənt ˈsɛntərz/", pos: "Noun Phrase", ex: "Young people often hang out at entertainment centers on weekends." },
+        { en: "Public transport system", vi: "Hệ thống giao thông công cộng", ipa: "/ˈpʌblɪk ˈtrænspɔːrt ˈsɪstəm/", pos: "Noun Phrase", ex: "The city needs to improve its public transport system." },
+        { en: "Shopping mall", vi: "Trung tâm thương mại", ipa: "/ˈʃɒpɪŋ mɔːl/", pos: "Noun Phrase", ex: "We spent the whole afternoon at the shopping mall." },
+        { en: "Undergo dramatic changes", vi: "Trải qua thay đổi mạnh mẽ", ipa: "/ˌʌndərˈɡoʊ drəˈmætɪk ˈtʃeɪndʒɪz/", pos: "Verb Phrase", ex: "My hometown has undergone dramatic changes in the last decade." },
 
         // --- 3. ACCOMMODATION ---
-        { en: "Apartment block / Flat", vi: "Chung cư/Căn hộ", pos: "Noun", ex: "I live in a modern apartment block near the river." },
-        { en: "Terraced house", vi: "Nhà phố (liền kề)", pos: "Noun", ex: "Terraced houses are very common in the UK." },
-        { en: "Detached house", vi: "Nhà riêng biệt lập", pos: "Noun", ex: "A detached house offers more privacy than an apartment." },
-        { en: "Dormitory", vi: "Ký túc xá", pos: "Noun", ex: "Living in a dormitory is a great way to make friends at college." },
-        { en: "Rented accommodation", vi: "Nhà thuê", pos: "Noun Phrase", ex: "Students usually live in rented accommodation." },
-        { en: "Residential area", vi: "Khu dân cư", pos: "Noun Phrase", ex: "My house is in a quiet residential area." },
-        { en: "Convenient location", vi: "Vị trí thuận tiện", pos: "Noun Phrase", ex: "The hotel has a convenient location near the subway station." },
-        { en: "Within walking distance of", vi: "Gần (có thể đi bộ tới)", pos: "Prepositional Phrase", ex: "My office is within walking distance of my house." },
-        { en: "Prime location", vi: "Vị trí đắc địa", pos: "Noun Phrase", ex: "The shop is in a prime location on the main street." },
-        { en: "Overlook", vi: "Nhìn ra (công viên/hồ)", pos: "Verb", ex: "My bedroom window overlooks a beautiful park." },
-        { en: "Spacious", vi: "Rộng rãi", pos: "Adjective", ex: "The living room is very spacious and bright." },
-        { en: "Cramped", vi: "Chật chội", pos: "Adjective", ex: "The apartment is a bit cramped for a family of four." },
-        { en: "Cozy", vi: "Ấm cúng", pos: "Adjective", ex: "I love my small, cozy bedroom." },
-        { en: "Airy", vi: "Thoáng khí", pos: "Adjective", ex: "With large windows, the room feels very airy." },
-        { en: "Stuffy", vi: "Bí bách", pos: "Adjective", ex: "It gets very stuffy in here during the summer." },
-        { en: "Fully furnished", vi: "Đầy đủ nội thất", pos: "Adjective", ex: "I rented a fully furnished apartment to save money on furniture." },
-        { en: "Modern appliances", vi: "Thiết bị hiện đại", pos: "Noun Phrase", ex: "The kitchen is equipped with modern appliances." },
-        { en: "Decorate", vi: "Trang trí", pos: "Verb", ex: "I like to decorate my room with plants and paintings." },
-        { en: "Renovate", vi: "Sửa sang, nâng cấp", pos: "Verb", ex: "We plan to renovate the bathroom next year." },
-        { en: "Balcony", vi: "Ban công", pos: "Noun", ex: "I often drink coffee on the balcony in the morning." },
-        { en: "House chores", vi: "Việc nhà", pos: "Noun", ex: "My brother and I share the house chores." },
-        { en: "Do the laundry", vi: "Giặt đồ", pos: "Verb Phrase", ex: "I usually do the laundry on Sundays." },
-        { en: "Tidy up", vi: "Dọn dẹp", pos: "Verb Phrase", ex: "Please tidy up your room before guests arrive." },
-        { en: "Family gathering", vi: "Tụ họp gia đình", pos: "Noun Phrase", ex: "We have a family gathering every Lunar New Year." },
-        { en: "Privacy", vi: "Sự riêng tư", pos: "Noun", ex: "Everyone needs some privacy now and then." },
-        { en: "Unwind / Chill out", vi: "Thư giãn", pos: "Verb", ex: "Listening to music helps me unwind after work." },
-        { en: "Housewarming party", vi: "Tiệc tân gia", pos: "Noun Phrase", ex: "They invited us to their housewarming party." },
-        { en: "Get on well with neighbors", vi: "Hòa thuận với hàng xóm", pos: "Verb Phrase", ex: "Luckily, we get on very well with our neighbors." },
-        { en: "Noisy neighbors", vi: "Hàng xóm ồn ào", pos: "Noun Phrase", ex: "Having noisy neighbors can be really annoying." },
-        { en: "Feel at home", vi: "Cảm thấy thoải mái như ở nhà", pos: "Idiom", ex: "Please sit down and feel at home." },
+        { en: "Apartment block / Flat", vi: "Chung cư/Căn hộ", ipa: "/əˈpɑːrtmənt blɒk / flæt/", pos: "Noun", ex: "I live in a modern apartment block near the river." },
+        { en: "Terraced house", vi: "Nhà phố (liền kề)", ipa: "/ˈtɛrəst haʊs/", pos: "Noun", ex: "Terraced houses are very common in the UK." },
+        { en: "Detached house", vi: "Nhà riêng biệt lập", ipa: "/dɪˈtætʃt haʊs/", pos: "Noun", ex: "A detached house offers more privacy than an apartment." },
+        { en: "Dormitory", vi: "Ký túc xá", ipa: "/ˈdɔːrmətɔːri/", pos: "Noun", ex: "Living in a dormitory is a great way to make friends at college." },
+        { en: "Rented accommodation", vi: "Nhà thuê", ipa: "/ˈrɛntɪd əˌkɒməˈdeɪʃn/", pos: "Noun Phrase", ex: "Students usually live in rented accommodation." },
+        { en: "Residential area", vi: "Khu dân cư", ipa: "/ˌrɛzɪˈdɛnʃl ˈeriə/", pos: "Noun Phrase", ex: "My house is in a quiet residential area." },
+        { en: "Convenient location", vi: "Vị trí thuận tiện", ipa: "/kənˈviːniənt loʊˈkeɪʃn/", pos: "Noun Phrase", ex: "The hotel has a convenient location near the subway station." },
+        { en: "Within walking distance of", vi: "Gần (có thể đi bộ tới)", ipa: "/wɪˈðɪn ˈwɔːkɪŋ ˈdɪstəns əv/", pos: "Prepositional Phrase", ex: "My office is within walking distance of my house." },
+        { en: "Prime location", vi: "Vị trí đắc địa", ipa: "/praɪm loʊˈkeɪʃn/", pos: "Noun Phrase", ex: "The shop is in a prime location on the main street." },
+        { en: "Overlook", vi: "Nhìn ra (công viên/hồ)", ipa: "/ˌoʊvərˈlʊk/", pos: "Verb", ex: "My bedroom window overlooks a beautiful park." },
+        { en: "Spacious", vi: "Rộng rãi", ipa: "/ˈspeɪʃəs/", pos: "Adjective", ex: "The living room is very spacious and bright." },
+        { en: "Cramped", vi: "Chật chội", ipa: "/kræmpt/", pos: "Adjective", ex: "The apartment is a bit cramped for a family of four." },
+        { en: "Cozy", vi: "Ấm cúng", ipa: "/ˈkoʊzi/", pos: "Adjective", ex: "I love my small, cozy bedroom." },
+        { en: "Airy", vi: "Thoáng khí", ipa: "/ˈeri/", pos: "Adjective", ex: "With large windows, the room feels very airy." },
+        { en: "Stuffy", vi: "Bí bách", ipa: "/ˈstʌfi/", pos: "Adjective", ex: "It gets very stuffy in here during the summer." },
+        { en: "Fully furnished", vi: "Đầy đủ nội thất", ipa: "/ˈfʊli ˈfɜːrnɪʃt/", pos: "Adjective", ex: "I rented a fully furnished apartment to save money on furniture." },
+        { en: "Modern appliances", vi: "Thiết bị hiện đại", ipa: "/ˈmɒdərn əˈplaɪənsɪz/", pos: "Noun Phrase", ex: "The kitchen is equipped with modern appliances." },
+        { en: "Decorate", vi: "Trang trí", ipa: "/ˈdɛkəreɪt/", pos: "Verb", ex: "I like to decorate my room with plants and paintings." },
+        { en: "Renovate", vi: "Sửa sang, nâng cấp", ipa: "/ˈrɛnəveɪt/", pos: "Verb", ex: "We plan to renovate the bathroom next year." },
+        { en: "Balcony", vi: "Ban công", ipa: "/ˈbælkəni/", pos: "Noun", ex: "I often drink coffee on the balcony in the morning." },
+        { en: "House chores", vi: "Việc nhà", ipa: "/haʊs tʃɔːrz/", pos: "Noun", ex: "My brother and I share the house chores." },
+        { en: "Do the laundry", vi: "Giặt đồ", ipa: "/duː ðə ˈlɔːndri/", pos: "Verb Phrase", ex: "I usually do the laundry on Sundays." },
+        { en: "Tidy up", vi: "Dọn dẹp", ipa: "/ˈtaɪdi ʌp/", pos: "Verb Phrase", ex: "Please tidy up your room before guests arrive." },
+        { en: "Family gathering", vi: "Tụ họp gia đình", ipa: "/ˈfæməli ˈɡæðərɪŋ/", pos: "Noun Phrase", ex: "We have a family gathering every Lunar New Year." },
+        { en: "Privacy", vi: "Sự riêng tư", ipa: "/ˈprɪvəsi/", pos: "Noun", ex: "Everyone needs some privacy now and then." },
+        { en: "Unwind / Chill out", vi: "Thư giãn", ipa: "/ˌʌnˈwaɪnd / tʃɪl aʊt/", pos: "Verb", ex: "Listening to music helps me unwind after work." },
+        { en: "Housewarming party", vi: "Tiệc tân gia", ipa: "/ˈhaʊswɔːrmɪŋ ˈpɑːrti/", pos: "Noun Phrase", ex: "They invited us to their housewarming party." },
+        { en: "Get on well with neighbors", vi: "Hòa thuận với hàng xóm", ipa: "/ɡɛt ɒn wɛl wɪð ˈneɪbərz/", pos: "Verb Phrase", ex: "Luckily, we get on very well with our neighbors." },
+        { en: "Noisy neighbors", vi: "Hàng xóm ồn ào", ipa: "/ˈnɔɪzi ˈneɪbərz/", pos: "Noun Phrase", ex: "Having noisy neighbors can be really annoying." },
+        { en: "Feel at home", vi: "Cảm thấy thoải mái như ở nhà", ipa: "/fiːl æt hoʊm/", pos: "Idiom", ex: "Please sit down and feel at home." },
 
         // --- 4. LINKING WORDS ---
-        { en: "Actually / To be honest", vi: "Thật ra thì / Thành thật mà nói", pos: "Adverb/Phrase", ex: "Actually, I haven't finished the report yet." },
-        { en: "Generally speaking", vi: "Nói chung là", pos: "Phrase", ex: "Generally speaking, the weather here is quite nice." },
-        { en: "What I like most about X is", vi: "Điều tôi thích nhất ở X là...", pos: "Phrase", ex: "What I like most about this job is the flexibility." },
-        { en: "I’m really keen on", vi: "Tôi rất thích...", pos: "Phrase", ex: "I’m really keen on playing football." },
-        { en: "It allows me to", vi: "Nó cho phép tôi làm gì...", pos: "Phrase", ex: "This software allows me to work much faster." },
-        { en: "Once in a blue moon", vi: "Hiếm khi", pos: "Idiom", ex: "I go to the cinema once in a blue moon." },
-        { en: "Day in, day out", vi: "Ngày qua ngày", pos: "Idiom", ex: "He does the same boring job day in, day out." },
-        { en: "For the most part", vi: "Phần lớn là", pos: "Phrase", ex: "For the most part, I agree with your opinion." },
-        { en: "On top of that", vi: "Thêm vào đó", pos: "Phrase", ex: "The job is interesting, and on top of that, the pay is good." },
-        { en: "Last but not least", vi: "Cuối cùng nhưng không kém phần quan trọng", pos: "Phrase", ex: "And last but not least, I'd like to thank my parents." }
+        { en: "Actually / To be honest", vi: "Thật ra thì / Thành thật mà nói", ipa: "/ˈæktʃuəli / tuː bi ˈɒnɪst/", pos: "Adverb/Phrase", ex: "Actually, I haven't finished the report yet." },
+        { en: "Generally speaking", vi: "Nói chung là", ipa: "/ˈdʒɛnərəli ˈspiːkɪŋ/", pos: "Phrase", ex: "Generally speaking, the weather here is quite nice." },
+        { en: "What I like most about X is", vi: "Điều tôi thích nhất ở X là...", ipa: "/wɒt aɪ laɪk moʊst əˈbaʊt ... ɪz/", pos: "Phrase", ex: "What I like most about this job is the flexibility." },
+        { en: "I’m really keen on", vi: "Tôi rất thích...", ipa: "/aɪm ˈrɪəli kiːn ɒn/", pos: "Phrase", ex: "I’m really keen on playing football." },
+        { en: "It allows me to", vi: "Nó cho phép tôi làm gì...", ipa: "/ɪt əˈlaʊz miː tuː/", pos: "Phrase", ex: "This software allows me to work much faster." },
+        { en: "Once in a blue moon", vi: "Hiếm khi", ipa: "/wʌns ɪn ə bluː muːn/", pos: "Idiom", ex: "I go to the cinema once in a blue moon." },
+        { en: "Day in, day out", vi: "Ngày qua ngày", ipa: "/deɪ ɪn, deɪ aʊt/", pos: "Idiom", ex: "He does the same boring job day in, day out." },
+        { en: "For the most part", vi: "Phần lớn là", ipa: "/fɔːr ðə moʊst pɑːrt/", pos: "Phrase", ex: "For the most part, I agree with your opinion." },
+        { en: "On top of that", vi: "Thêm vào đó", ipa: "/ɒn tɒp əv ðæt/", pos: "Phrase", ex: "The job is interesting, and on top of that, the pay is good." },
+        { en: "Last but not least", vi: "Cuối cùng nhưng không kém phần quan trọng", ipa: "/læst bʌt nɒt liːst/", pos: "Phrase", ex: "And last but not least, I'd like to thank my parents." }
     ];
 
     let vocabularyList = initialVocabulary.map(item => ({...item, status: 'new'}));
@@ -628,6 +640,7 @@ Speaking_English
     const elements = {
         vnText: document.getElementById('vn-text'),
         enText: document.getElementById('en-text'),
+        ipaText: document.getElementById('ipa-text'), // New element for IPA
         posText: document.getElementById('pos-text'),
         exText: document.getElementById('example-text'),
         answerArea: document.getElementById('answer-area'),
@@ -766,6 +779,14 @@ Speaking_English
         elements.enText.innerText = item.en;
         elements.posText.innerText = item.pos;
         elements.exText.innerText = `Ví dụ: "${item.ex}"`;
+        
+        // Cập nhật IPA
+        if (item.ipa) {
+            elements.ipaText.innerText = item.ipa;
+            elements.ipaText.style.display = 'block';
+        } else {
+            elements.ipaText.style.display = 'none';
+        }
         
         elements.answerArea.style.display = 'none';
         elements.reviewActions.style.display = 'none';
