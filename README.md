@@ -3,7 +3,7 @@ Huyền_Speaking_1-100
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Luyện 200 Từ Vựng - Red Edition Pro</title>
+    <title>Luyện 100 Từ Vựng IELTS - Red Edition Pro</title>
     <style>
         :root {
             --primary-color: #d32f2f;
@@ -99,12 +99,13 @@ Huyền_Speaking_1-100
             width: 100%;
         }
 
+        /* Layout cho hàng chứa từ tiếng Anh và nút loa */
         .english-row {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin: 5px 0;
+            margin: 5px 0; 
             flex-wrap: wrap;
         }
 
@@ -117,6 +118,7 @@ Huyền_Speaking_1-100
             word-break: break-word; 
         }
 
+        /* Style cho phiên âm IPA */
         .ipa-text {
             font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', sans-serif;
             font-size: 18px;
@@ -125,6 +127,7 @@ Huyền_Speaking_1-100
             font-weight: 400;
         }
 
+        /* Nút nghe lại âm thanh */
         .btn-audio-replay {
             background: white;
             border: 2px solid var(--primary-color);
@@ -159,6 +162,21 @@ Huyền_Speaking_1-100
             border: 1px solid #ffcdd2;
         }
 
+        /* FIX: Ensure example box style is present */
+        .example-box {
+            font-size: 16px;
+            color: #4b5563;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fff5f5;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            line-height: 1.5;
+            display: none; /* Hidden by default */
+        }
+
         /* Buttons */
         .btn {
             border: none;
@@ -184,6 +202,7 @@ Huyền_Speaking_1-100
             font-size: 18px;
         }
 
+        /* Navigation Row */
         .nav-row {
             display: flex;
             justify-content: space-between;
@@ -205,6 +224,7 @@ Huyền_Speaking_1-100
             padding: 0;
         }
 
+        /* Review Status Buttons */
         .review-actions {
             display: flex;
             gap: 10px;
@@ -268,6 +288,7 @@ Huyền_Speaking_1-100
             padding-bottom: 10px;
         }
 
+        /* List Modal Styles */
         .list-container {
             overflow-y: auto;
             flex: 1;
@@ -286,6 +307,7 @@ Huyền_Speaking_1-100
         .list-item:hover { background-color: #fce4ec; }
         .list-item.active { background-color: #ffcdd2; font-weight: bold; }
 
+        /* Stats Modal Styles */
         .stats-summary {
             display: flex;
             justify-content: space-around;
@@ -321,6 +343,7 @@ Huyền_Speaking_1-100
         }
         .recommend-item:hover { background: #fff3e0; }
         
+        /* Settings Modal Custom */
         .settings-row {
             margin-bottom: 15px;
             text-align: left;
@@ -344,8 +367,11 @@ Huyền_Speaking_1-100
             margin-top: 5px;
         }
 
+        /* --- RESPONSIVE MOBILE CONFIGURATION --- */
         @media (max-width: 480px) {
-            .container { padding: 20px; }
+            .container {
+                padding: 20px;
+            }
             .vietnamese-text { font-size: 20px; }
             .english-word { font-size: 26px; }
             .card { min-height: 240px; }
@@ -371,39 +397,50 @@ Huyền_Speaking_1-100
             <button class="btn-icon" onclick="toggleSettings()" title="Cài đặt âm thanh">⚙️</button>
             <button class="btn-icon" onclick="shuffleVocabulary()" title="Đảo thứ tự">🔀</button>
         </div>
-        <div id="progress" class="progress-bar">CÂU 1 / 200</div>
+        <div id="progress" class="progress-bar">CÂU 1 / 100</div>
     </div>
 
+    <!-- Status Badge -->
     <div id="current-status" class="status-badge status-new">Mới</div>
     
     <div class="card">
+        <!-- Phần câu hỏi Tiếng Việt -->
         <div id="question-area">
             <div class="vietnamese-text" id="vn-text">Đang tải dữ liệu...</div>
         </div>
 
+        <!-- Phần đáp án (Ẩn) -->
         <div id="answer-area" class="hidden-content">
             <div class="part-of-speech" id="pos-text"></div>
             
+            <!-- Hàng chứa từ và loa -->
             <div class="english-row">
                 <div class="english-word" id="en-text"></div>
                 <button class="btn-audio-replay" onclick="playCurrentAudio()" title="Nghe lại">🔊</button>
             </div>
             
+            <!-- Phiên âm IPA -->
             <div class="ipa-text" id="ipa-text"></div>
+
+            <!-- FIX: Thêm lại div example-text để hiển thị ví dụ -->
+            <div class="example-box" id="example-text"></div>
         </div>
     </div>
 
     <div id="status-msg" class="status-msg"></div>
 
+    <!-- Nút điều khiển chính -->
     <div id="main-actions">
         <button id="btn-reveal" class="btn btn-reveal" onclick="revealAnswer()">XEM ĐÁP ÁN</button>
     </div>
 
+    <!-- Nút Đánh dấu (Hiện sau khi xem đáp án) -->
     <div id="review-actions" class="review-actions" style="display: none;">
         <button class="btn btn-learn" onclick="markStatus('learning')">Chưa thuộc 😕</button>
         <button class="btn btn-success" onclick="markStatus('learned')">Đã thuộc 😎</button>
     </div>
 
+    <!-- Thanh điều hướng -->
     <div class="nav-row">
         <button class="btn btn-nav" onclick="changeCard(-1)">❮</button>
         <button class="btn btn-nav" onclick="changeCard(1)">❯</button>
@@ -414,7 +451,7 @@ Huyền_Speaking_1-100
 <div id="list-modal" class="modal-overlay">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 style="margin:0; color:var(--primary-color)">Danh Sách 200 Từ</h3>
+            <h3 style="margin:0; color:var(--primary-color)">Danh Sách 100 Từ</h3>
             <button onclick="toggleList()" style="border:none; background:none; font-size:24px; cursor:pointer;">&times;</button>
         </div>
         <div class="list-container" id="vocab-list-content"></div>
@@ -460,18 +497,17 @@ Huyền_Speaking_1-100
         
         <div style="padding: 10px 0;">
             <div class="settings-row">
-                <label class="settings-label">Chọn Giọng Đọc (Hệ thống):</label>
+                <label class="settings-label">Chọn Giọng Đọc:</label>
                 <select id="voice-select" class="settings-input" onchange="updateVoiceSettings()">
-                    <option value="-1">Tự động chọn (Tốt nhất)</option>
+                    <option value="-1">Đang tải danh sách giọng...</option>
                 </select>
-                <p style="font-size: 12px; color: #666; margin-top: 5px;">* Chọn giọng "English" để nghe chuẩn.</p>
             </div>
             
             <div class="settings-row">
-                <label class="settings-label">Tốc Độ Đọc: <span id="speed-display" style="color:var(--primary-color)">0.6</span></label>
-                <input type="range" id="speed-range" min="0.4" max="1.5" step="0.1" value="0.6" oninput="updateSpeedSettings()">
+                <label class="settings-label">Tốc Độ Đọc: <span id="speed-display" style="color:var(--primary-color)">0.7</span></label>
+                <input type="range" id="speed-range" min="0.5" max="1.5" step="0.1" value="0.7" oninput="updateSpeedSettings()">
                 <div style="display:flex; justify-content:space-between; font-size:12px; color:#999; margin-top:5px;">
-                    <span>Chậm (0.4)</span>
+                    <span>Chậm (0.5)</span>
                     <span>Nhanh (1.5)</span>
                 </div>
             </div>
@@ -482,208 +518,115 @@ Huyền_Speaking_1-100
 </div>
 
 <script>
-    // === DỮ LIỆU TỪ VỰNG 200 CÂU (Đã thêm IPA) ===
+    // === DỮ LIỆU TỪ VỰNG 100 CÂU ===
     const initialVocabulary = [
-        {id: 1, en: "Safe", pos: "(adj)", ipa: "/seɪf/", vi: "An toàn"},
-        {id: 2, en: "view", pos: "v.", ipa: "/vjuː/", vi: "nhìn, xem"},
-        {id: 3, en: "Environment", pos: "(n)", ipa: "/ɪnˈvaɪrənmənt/", vi: "Môi trường"},
-        {id: 4, en: "Rain", pos: "(n)", ipa: "/reɪn/", vi: "Mưa"},
-        {id: 5, en: "life", pos: "n.", ipa: "/laɪf/", vi: "cuộc sống"},
-        {id: 6, en: "adventure", pos: "n.", ipa: "/ədˈventʃər/", vi: "cuộc phiêu lưu"},
-        {id: 7, en: "Earth", pos: "(n)", ipa: "/ɜːθ/", vi: "Trái Đất"},
-        {id: 8, en: "Use", pos: "(v)", ipa: "/juːz/", vi: "Sử dụng"},
-        {id: 9, en: "Pollution", pos: "(n)", ipa: "/pəˈluːʃn/", vi: "Sự ô nhiễm"},
-        {id: 10, en: "Factory", pos: "(n)", ipa: "/ˈfæktri/", vi: "Nhà máy"},
-        {id: 11, en: "Bottle", pos: "(n)", ipa: "/ˈbɒtl/", vi: "Chai, lọ"},
-        {id: 12, en: "punish", pos: "v.", ipa: "/ˈpʌnɪʃ/", vi: "trừng phạt"},
-        {id: 13, en: "Recycle", pos: "(v)", ipa: "/ˌriːˈsaɪkl/", vi: "Tái chế"},
-        {id: 14, en: "football", pos: "n.", ipa: "/ˈfʊtbɔːl/", vi: "bóng đá, bóng bầu dục"},
-        {id: 15, en: "patient", pos: "adj.", ipa: "/ˈpeɪʃnt/", vi: "kiên nhẫn"},
-        {id: 16, en: "fail", pos: "v.", ipa: "/feɪl/", vi: "thất bại"},
-        {id: 17, en: "Burn", pos: "(v)", ipa: "/bɜːn/", vi: "Đốt, cháy"},
-        {id: 18, en: "Can", pos: "(n)", ipa: "/kæn/", vi: "Lon, hộp kim loại"},
-        {id: 19, en: "Global", pos: "(adj)", ipa: "/ˈɡləʊbl/", vi: "Toàn cầu"},
-        {id: 20, en: "camera", pos: "n.", ipa: "/ˈkæmrə/", vi: "máy ảnh"},
-        {id: 21, en: "Recyclable", pos: "(adj)", ipa: "/ˌriːˈsaɪkləbl/", vi: "Có thể tái chế"},
-        {id: 22, en: "shout", pos: "v.", ipa: "/ʃaʊt/", vi: "la hét"},
-        {id: 23, en: "several", pos: "adj.", ipa: "/ˈsevrəl/", vi: "một vài"},
-        {id: 24, en: "experiment", pos: "n.", ipa: "/ɪkˈsperɪmənt/", vi: "thí nghiệm"},
-        {id: 25, en: "bike", pos: "n.", ipa: "/baɪk/", vi: "xe đạp"},
-        {id: 26, en: "Turn off", pos: "(phr. v)", ipa: "/tɜːn ɒf/", vi: "Tắt (điện, nước)"},
-        {id: 27, en: "Air", pos: "(n)", ipa: "/eə(r)/", vi: "Không khí"},
-        {id: 28, en: "chart", pos: "n.", ipa: "/tʃɑːt/", vi: "biểu đồ"},
-        {id: 29, en: "Waste", pos: "(v)", ipa: "/weɪst/", vi: "Lãng phí"},
-        {id: 30, en: "Natural", pos: "(adj)", ipa: "/ˈnætʃrəl/", vi: "Thuộc về tự nhiên"},
-        {id: 31, en: "Plant", pos: "(n)", ipa: "/plɑːnt/", vi: "Thực vật, cây cối"},
-        {id: 32, en: "content", pos: "adj.", ipa: "/kənˈtent/", vi: "hài lòng, mãn nguyện"},
-        {id: 33, en: "golf", pos: "n.", ipa: "/ɡɒlf/", vi: "môn đánh gôn"},
-        {id: 34, en: "habit", pos: "n.", ipa: "/ˈhæbɪt/", vi: "thói quen"},
-        {id: 35, en: "behave", pos: "v.", ipa: "/bɪˈheɪv/", vi: "cư xử, hành xử"},
-        {id: 36, en: "spread", pos: "v.", ipa: "/spred/", vi: "lan truyền, trải ra"},
-        {id: 37, en: "Clean", pos: "(adj)", ipa: "/kliːn/", vi: "Sạch sẽ"},
-        {id: 38, en: "Waste", pos: "(n)", ipa: "/weɪst/", vi: "Rác thải, chất thải"},
-        {id: 39, en: "Plant", pos: "(v)", ipa: "/plɑːnt/", vi: "Trồng (cây)"},
-        {id: 40, en: "Breathe", pos: "(v)", ipa: "/briːð/", vi: "Hít thở"},
-        {id: 41, en: "Gas", pos: "(n)", ipa: "/ɡæs/", vi: "Khí đốt"},
-        {id: 42, en: "Fresh", pos: "(adj)", ipa: "/freʃ/", vi: "Trong lành, tươi"},
-        {id: 43, en: "Harmful", pos: "(adj)", ipa: "/ˈhɑːmfl/", vi: "Có hại"},
-        {id: 44, en: "ever", pos: "adv.", ipa: "/ˈevə(r)/", vi: "đã từng"},
-        {id: 45, en: "weight", pos: "n.", ipa: "/weɪt/", vi: "cân nặng"},
-        {id: 46, en: "Nature", pos: "(n)", ipa: "/ˈneɪtʃə(r)/", vi: "Thiên nhiên, tự nhiên"},
-        {id: 47, en: "Drop", pos: "(v)", ipa: "/drɒp/", vi: "Làm rơi, vứt"},
-        {id: 48, en: "Farm", pos: "(n)", ipa: "/fɑːm/", vi: "Nông trại"},
-        {id: 49, en: "shape", pos: "n.", ipa: "/ʃeɪp/", vi: "hình dạng"},
-        {id: 50, en: "secret", pos: "n.", ipa: "/ˈsiːkrət/", vi: "bí mật"},
-        {id: 51, en: "Quickly", pos: "(adv)", ipa: "/ˈkwɪkli/", vi: "Một cách nhanh chóng"},
-        {id: 52, en: "On", pos: "(prep)", ipa: "/ɒn/", vi: "Ở trên"},
-        {id: 53, en: "calm", pos: "adj.", ipa: "/kɑːm/", vi: "bình tĩnh"},
-        {id: 54, en: "during", pos: "prep.", ipa: "/ˈdjʊərɪŋ/", vi: "trong suốt (thời gian)"},
-        {id: 55, en: "Smoke", pos: "(n)", ipa: "/sməʊk/", vi: "Khói"},
-        {id: 56, en: "Carefully", pos: "(adv)", ipa: "/ˈkeəfəli/", vi: "Một cách cẩn thận"},
-        {id: 57, en: "loud", pos: "adj.", ipa: "/laʊd/", vi: "to, ồn ào"},
-        {id: 58, en: "Reusable", pos: "(adj)", ipa: "/ˌriːˈjuːzəbl/", vi: "Có thể tái sử dụng"},
-        {id: 59, en: "create", pos: "v.", ipa: "/kriˈeɪt/", vi: "tạo ra"},
-        {id: 60, en: "Litter", pos: "(n)", ipa: "/ˈlɪtə(r)/", vi: "Rác vụn (vứt bừa bãi)"},
-        {id: 61, en: "appropriate", pos: "adj.", ipa: "/əˈprəʊpriət/", vi: "thích hợp, phù hợp"},
-        {id: 62, en: "Never", pos: "(adv)", ipa: "/ˈnevə(r)/", vi: "Không bao giờ"},
-        {id: 63, en: "Noise", pos: "(n)", ipa: "/nɔɪz/", vi: "Tiếng ồn"},
-        {id: 64, en: "Dirty", pos: "(adj)", ipa: "/ˈdɜːti/", vi: "Bẩn, dơ"},
-        {id: 65, en: "Local", pos: "(adj)", ipa: "/ˈləʊkl/", vi: "Địa phương"},
-        {id: 66, en: "agree", pos: "v.", ipa: "/əˈɡriː/", vi: "đồng ý"},
-        {id: 67, en: "Reuse", pos: "(v)", ipa: "/ˌriːˈjuːz/", vi: "Tái sử dụng"},
-        {id: 68, en: "Solar", pos: "(adj)", ipa: "/ˈsəʊlə(r)/", vi: "(Thuộc) mặt trời"},
-        {id: 69, en: "adult", pos: "n.", ipa: "/ˈædʌlt/", vi: "người lớn, người trưởng thành"},
-        {id: 70, en: "Bag", pos: "(n)", ipa: "/bæɡ/", vi: "Cái túi"},
-        {id: 71, en: "laugh", pos: "n.", ipa: "/lɑːf/", vi: "tiếng cười"},
-        {id: 72, en: "concern", pos: "n.", ipa: "/kənˈsɜːn/", vi: "mối quan tâm, sự lo lắng"},
-        {id: 73, en: "nervous", pos: "adj.", ipa: "/ˈnɜːvəs/", vi: "lo lắng"},
-        {id: 74, en: "approach", pos: "v.", ipa: "/əˈprəʊtʃ/", vi: "tiếp cận"},
-        {id: 75, en: "Danger", pos: "(n)", ipa: "/ˈdeɪndʒə(r)/", vi: "Mối nguy hiểm"},
-        {id: 76, en: "typical", pos: "adj.", ipa: "/ˈtɪpɪkl/", vi: "điển hình, tiêu biểu"},
-        {id: 77, en: "travel", pos: "v.", ipa: "/ˈtrævl/", vi: "du lịch"},
-        {id: 78, en: "alcohol", pos: "n.", ipa: "/ˈælkəhɒl/", vi: "cồn, rượu"},
-        {id: 79, en: "choose", pos: "v.", ipa: "/tʃuːz/", vi: "lựa chọn"},
-        {id: 80, en: "Paper", pos: "(n)", ipa: "/ˈpeɪpə(r)/", vi: "Giấy"},
-        {id: 81, en: "River", pos: "(n)", ipa: "/ˈrɪvə(r)/", vi: "Con sông"},
-        {id: 82, en: "Rubbish", pos: "(n)", ipa: "/ˈrʌbɪʃ/", vi: "Rác (tương tự trash)"},
-        {id: 83, en: "Walk", pos: "(v)", ipa: "/wɔːk/", vi: "Đi bộ"},
-        {id: 84, en: "Weather", pos: "(n)", ipa: "/ˈweðə(r)/", vi: "Thời tiết"},
-        {id: 85, en: "Important", pos: "(adj)", ipa: "/ɪmˈpɔːtnt/", vi: "Quan trọng"},
-        {id: 86, en: "boat", pos: "n.", ipa: "/bəʊt/", vi: "thuyền"},
-        {id: 87, en: "visit", pos: "v.", ipa: "/ˈvɪzɪt/", vi: "thăm"},
-        {id: 88, en: "Cycle", pos: "(v)", ipa: "/ˈsaɪkl/", vi: "Đạp xe"},
-        {id: 89, en: "among", pos: "prep.", ipa: "/əˈmʌŋ/", vi: "ở giữa"},
-        {id: 90, en: "breakfast", pos: "n.", ipa: "/ˈbrekfəst/", vi: "bữa sáng"},
-        {id: 91, en: "Damage", pos: "(n)", ipa: "/ˈdæmɪdʒ/", vi: "Sự thiệt hại"},
-        {id: 92, en: "Water", pos: "(n)", ipa: "/ˈwɔːtə(r)/", vi: "Nước"},
-        {id: 93, en: "duck", pos: "n.", ipa: "/dʌk/", vi: "con vịt"},
-        {id: 94, en: "Shower", pos: "(v)", ipa: "/ˈʃaʊə(r)/", vi: "Tắm (vòi sen)"},
-        {id: 95, en: "Always", pos: "(adv)", ipa: "/ˈɔːlweɪz/", vi: "Luôn luôn"},
-        {id: 96, en: "Beach", pos: "(n)", ipa: "/biːtʃ/", vi: "Bãi biển"},
-        {id: 97, en: "worse", pos: "adj.", ipa: "/wɜːs/", vi: "tệ hơn"},
-        {id: 98, en: "Grow", pos: "(v)", ipa: "/ɡrəʊ/", vi: "Trồng, phát triển"},
-        {id: 99, en: "avoid", pos: "v.", ipa: "/əˈvɔɪd/", vi: "tránh, né tránh"},
-        {id: 100, en: "Harm", pos: "(v)", ipa: "/hɑːm/", vi: "Gây hại"},
-        {id: 101, en: "balance", pos: "n.", ipa: "/ˈbæləns/", vi: "sự cân bằng"},
-        {id: 102, en: "Rainy", pos: "(adj)", ipa: "/ˈreɪni/", vi: "Có mưa"},
-        {id: 103, en: "Animal", pos: "(n)", ipa: "/ˈænɪml/", vi: "Động vật"},
-        {id: 104, en: "week", pos: "n.", ipa: "/wiːk/", vi: "tuần"},
-        {id: 105, en: "love", pos: "v.", ipa: "/lʌv/", vi: "yêu"},
-        {id: 106, en: "Trash", pos: "(n)", ipa: "/træʃ/", vi: "Rác (thường là đồ khô)"},
-        {id: 107, en: "game", pos: "n.", ipa: "/ɡeɪm/", vi: "trò chơi"},
-        {id: 108, en: "age", pos: "n.", ipa: "/eɪdʒ/", vi: "tuổi, tuổi tác"},
-        {id: 109, en: "Healthy", pos: "(adj)", ipa: "/ˈhelθi/", vi: "Lành mạnh, khỏe"},
-        {id: 110, en: "Energy", pos: "(n)", ipa: "/ˈenədʒi/", vi: "Năng lượng"},
-        {id: 111, en: "Look after", pos: "(phr. v)", ipa: "/lʊk ˈɑːftə(r)/", vi: "Trông nom, chăm sóc"},
-        {id: 112, en: "active", pos: "adj.", ipa: "/ˈæktɪv/", vi: "năng động, tích cực"},
-        {id: 113, en: "Wind", pos: "(n)", ipa: "/wɪnd/", vi: "Gió"},
-        {id: 114, en: "positive", pos: "adj.", ipa: "/ˈpɒzətɪv/", vi: "tích cực"},
-        {id: 115, en: "suddenly", pos: "adv.", ipa: "/ˈsʌdnli/", vi: "đột ngột"},
-        {id: 116, en: "increase", pos: "v.", ipa: "/ɪnˈkriːs/", vi: "tăng lên"},
-        {id: 117, en: "Protect", pos: "(v)", ipa: "/prəˈtekt/", vi: "Bảo vệ"},
-        {id: 118, en: "Soil", pos: "(n)", ipa: "/sɔɪl/", vi: "Đất"},
-        {id: 119, en: "catch", pos: "v.", ipa: "/kætʃ/", vi: "bắt, chụp"},
-        {id: 120, en: "Glass", pos: "(n)", ipa: "/ɡlɑːs/", vi: "Thủy tinh"},
-        {id: 121, en: "bad", pos: "adj.", ipa: "/bæd/", vi: "tồi, tệ"},
-        {id: 122, en: "project", pos: "n.", ipa: "/ˈprɒdʒekt/", vi: "dự án"},
-        {id: 123, en: "instruct", pos: "v.", ipa: "/ɪnˈstrʌkt/", vi: "hướng dẫn, dạy"},
-        {id: 124, en: "solve", pos: "v.", ipa: "/sɒlv/", vi: "giải quyết"},
-        {id: 125, en: "village", pos: "n.", ipa: "/ˈvɪlɪdʒ/", vi: "làng, ngôi làng"},
-        {id: 126, en: "report", pos: "n.", ipa: "/rɪˈpɔːt/", vi: "bài báo cáo"},
-        {id: 127, en: "August", pos: "n.", ipa: "/ɔːˈɡʌst/", vi: "tháng Tám"},
-        {id: 128, en: "Plastic", pos: "(n)", ipa: "/ˈplæstɪk/", vi: "Nhựa"},
-        {id: 129, en: "Sea", pos: "(n)", ipa: "/siː/", vi: "Biển"},
-        {id: 130, en: "suppose", pos: "v.", ipa: "/səˈpəʊz/", vi: "cho rằng, giả sử"},
-        {id: 131, en: "library", pos: "n.", ipa: "/ˈlaɪbrəri/", vi: "thư viện"},
-        {id: 132, en: "Tree", pos: "(n)", ipa: "/triː/", vi: "Cây xanh"},
-        {id: 133, en: "understand", pos: "v.", ipa: "/ˌʌndəˈstænd/", vi: "hiểu"},
-        {id: 134, en: "represent", pos: "v.", ipa: "/ˌreprɪˈzent/", vi: "đại diện"},
-        {id: 135, en: "frequently", pos: "adv.", ipa: "/ˈfriːkwəntli/", vi: "thường xuyên"},
-        {id: 136, en: "evil", pos: "adj.", ipa: "/ˈiːvl/", vi: "độc ác"},
-        {id: 137, en: "Around", pos: "(prep)", ipa: "/əˈraʊnd/", vi: "Xung quanh"},
-        {id: 138, en: "describe", pos: "v.", ipa: "/dɪˈskraɪb/", vi: "mô tả"},
-        {id: 139, en: "Electricity", pos: "(n)", ipa: "/ɪˌlekˈtrɪsəti/", vi: "Điện"},
-        {id: 140, en: "Care for", pos: "(phr. v)", ipa: "/keə(r) fɔː(r)/", vi: "Chăm sóc"},
-        {id: 141, en: "Reduce", pos: "(v)", ipa: "/rɪˈdjuːs/", vi: "Cắt giảm"},
-        {id: 142, en: "often", pos: "adv.", ipa: "/ˈɒfn/", vi: "thường"},
-        {id: 143, en: "Green", pos: "(adj)", ipa: "/ɡriːn/", vi: "Xanh (liên quan đến MT)"},
-        {id: 144, en: "fun", pos: "adj.", ipa: "/fʌn/", vi: "vui vẻ"},
-        {id: 145, en: "Help", pos: "(v)", ipa: "/help/", vi: "Giúp đỡ"},
-        {id: 146, en: "Pick up", pos: "(phr. v)", ipa: "/pɪk ʌp/", vi: "Nhặt lên"},
-        {id: 147, en: "Forest", pos: "(n)", ipa: "/ˈfɒrɪst/", vi: "Khu rừng"},
-        {id: 148, en: "Sun", pos: "(n)", ipa: "/sʌn/", vi: "Mặt trời"},
-        {id: 149, en: "invite", pos: "v.", ipa: "/ɪnˈvaɪt/", vi: "mời"},
-        {id: 150, en: "Throw away", pos: "(phr. v)", ipa: "/θrəʊ əˈweɪ/", vi: "Vứt đi"},
-        {id: 151, en: "Windy", pos: "(adj)", ipa: "/ˈwɪndi/", vi: "Có gió"},
-        {id: 152, en: "kilometer", pos: "n.", ipa: "/kɪˈlɒmɪtə(r)/", vi: "ki-lô-mét"},
-        {id: 153, en: "instead", pos: "adv.", ipa: "/ɪnˈsted/", vi: "thay vì"},
-        {id: 154, en: "grade", pos: "n.", ipa: "/ɡreɪd/", vi: "điểm số"},
-        {id: 155, en: "kill", pos: "v.", ipa: "/kɪl/", vi: "giết"},
-        {id: 156, en: "alien", pos: "n.", ipa: "/ˈeɪliən/", vi: "người ngoài hành tinh"},
-        {id: 157, en: "capital", pos: "n.", ipa: "/ˈkæpɪtl/", vi: "thủ đô"},
-        {id: 158, en: "Climate", pos: "(n)", ipa: "/ˈklaɪmət/", vi: "Khí hậu"},
-        {id: 159, en: "shake", pos: "v.", ipa: "/ʃeɪk/", vi: "lắc, rung"},
-        {id: 160, en: "issue", pos: "n.", ipa: "/ˈɪʃuː/", vi: "vấn đề"},
-        {id: 161, en: "none", pos: "pron.", ipa: "/nʌn/", vi: "không ai, không cái gì"},
-        {id: 162, en: "Destroy", pos: "(v)", ipa: "/dɪˈstrɔɪ/", vi: "Phá hủy"},
-        {id: 163, en: "Flower", pos: "(n)", ipa: "/ˈflaʊə(r)/", vi: "Bông hoa"},
-        {id: 164, en: "laboratory", pos: "n.", ipa: "/ləˈbɒrətri/", vi: "phòng thí nghiệm"},
-        {id: 165, en: "cloud", pos: "n.", ipa: "/klaʊd/", vi: "đám mây"},
-        {id: 166, en: "terrible", pos: "adj.", ipa: "/ˈterəbl/", vi: "khủng khiếp, tồi tệ"},
-        {id: 167, en: "Save", pos: "(v)", ipa: "/seɪv/", vi: "Cứu, tiết kiệm"},
-        {id: 168, en: "wine", pos: "n.", ipa: "/waɪn/", vi: "rượu vang"},
-        {id: 169, en: "Ocean", pos: "(n)", ipa: "/ˈəʊʃn/", vi: "Đại dương"},
-        {id: 170, en: "smell", pos: "v.", ipa: "/smel/", vi: "ngửi"},
-        {id: 171, en: "month", pos: "n.", ipa: "/mʌnθ/", vi: "tháng"},
-        {id: 172, en: "Sort", pos: "(v)", ipa: "/sɔːt/", vi: "Phân loại"},
-        {id: 173, en: "Chemical", pos: "(n)", ipa: "/ˈkemɪkl/", vi: "Hóa chất"},
-        {id: 174, en: "enjoy", pos: "v.", ipa: "/ɪnˈdʒɔɪ/", vi: "thích thú, tận hưởng"},
-        {id: 175, en: "heart", pos: "n.", ipa: "/hɑːt/", vi: "trái tim"},
-        {id: 176, en: "Drive", pos: "(v)", ipa: "/draɪv/", vi: "Lái xe"},
-        {id: 177, en: "plenty", pos: "pron.", ipa: "/ˈplenti/", vi: "nhiều"},
-        {id: 178, en: "expect", pos: "v.", ipa: "/ɪkˈspekt/", vi: "mong đợi, kỳ vọng"},
-        {id: 179, en: "arrive", pos: "v.", ipa: "/əˈraɪv/", vi: "đến nơi"},
-        {id: 180, en: "Fire", pos: "(n)", ipa: "/ˈfaɪə(r)/", vi: "Lửa"},
-        {id: 181, en: "Clean", pos: "(v)", ipa: "/kliːn/", vi: "Dọn dẹp, làm sạch"},
-        {id: 182, en: "Mountain", pos: "(n)", ipa: "/ˈmaʊntən/", vi: "Ngọn núi"},
-        {id: 183, en: "doctor", pos: "n.", ipa: "/ˈdɒktə(r)/", vi: "bác sĩ"},
-        {id: 184, en: "scare", pos: "v.", ipa: "/skeə(r)/", vi: "làm sợ hãi"},
-        {id: 185, en: "In", pos: "(prep)", ipa: "/ɪn/", vi: "Ở trong"},
-        {id: 186, en: "Bin", pos: "(n)", ipa: "/bɪn/", vi: "Thùng rác"},
-        {id: 187, en: "photograph", pos: "n.", ipa: "/ˈfəʊtəɡrɑːf/", vi: "bức ảnh"},
-        {id: 188, en: "Collect", pos: "(v)", ipa: "/kəˈlekt/", vi: "Thu gom"},
-        {id: 189, en: "stroll", pos: "v.", ipa: "/strəʊl/", vi: "đi dạo"},
-        {id: 190, en: "Planet", pos: "(n)", ipa: "/ˈplænɪt/", vi: "Hành tinh"},
-        {id: 191, en: "Field", pos: "(n)", ipa: "/fiːld/", vi: "Cánh đồng"},
-        {id: 192, en: "Polluted", pos: "(adj)", ipa: "/pəˈluːtɪd/", vi: "Bị ô nhiễm"},
-        {id: 193, en: "Slowly", pos: "(adv)", ipa: "/ˈsləʊli/", vi: "Một cách chậm rãi"},
-        {id: 194, en: "Sunny", pos: "(adj)", ipa: "/ˈsʌni/", vi: "Có nắng"},
-        {id: 195, en: "history", pos: "(n)", ipa: "/ˈhɪstri/", vi: "lịch sử"},
-        {id: 196, en: "past", pos: "(n)", ipa: "/pɑːst/", vi: "quá khứ"},
-        {id: 197, en: "king", pos: "(n)", ipa: "/kɪŋ/", vi: "vua"},
-        {id: 198, en: "queen", pos: "(n)", ipa: "/kwiːn/", vi: "nữ hoàng"},
-        {id: 199, en: "castle", pos: "(n)", ipa: "/ˈkɑːsl/", vi: "lâu đài"},
-        {id: 200, en: "war", pos: "(n)", ipa: "/wɔː(r)/", vi: "chiến tranh"}
+        // --- 1. WORK & STUDY ---
+        { en: "Major in", vi: "Chuyên ngành về...", ipa: "/ˈmeɪdʒər ɪn/", pos: "Verb Phrase", ex: "I decided to major in Marketing to understand consumer behavior." },
+        { en: "Prestigious university", vi: "Trường đại học danh tiếng", ipa: "/prɛˈstɪdʒəs ˌjuːnɪˈvɜːrsəti/", pos: "Noun Phrase", ex: "Graduating from a prestigious university can open many doors." },
+        { en: "Pursue a career in", vi: "Theo đuổi sự nghiệp trong lĩnh vực...", ipa: "/pərˈsuː ə kəˈrɪər ɪn/", pos: "Verb Phrase", ex: "She wants to pursue a career in digital journalism." },
+        { en: "Land a job", vi: "Kiếm được công việc", ipa: "/lænd ə dʒɒb/", pos: "Verb Phrase", ex: "He managed to land a job at Google right after graduation." },
+        { en: "9-to-5 job", vi: "Công việc hành chính", ipa: "/ˌnaɪn.təˈfaɪv dʒɒb/", pos: "Noun Phrase", ex: "I prefer a stable 9-to-5 job over freelancing." },
+        { en: "Full-time / Part-time", vi: "Toàn thời gian / Bán thời gian", ipa: "/ˌfʊlˈtaɪm / ˌpɑːrtˈtaɪm/", pos: "Adjective", ex: "Students often find part-time jobs to cover their living expenses." },
+        { en: "Work environment", vi: "Môi trường làm việc", ipa: "/wɜːrk ɪnˈvaɪrənmənt/", pos: "Noun Phrase", ex: "A toxic work environment significantly affects employee productivity." },
+        { en: "Colleagues / Coworkers", vi: "Đồng nghiệp", ipa: "/ˈkɒliːɡz / ˈkoʊˌwɜːrkərz/", pos: "Noun", ex: "My colleagues are very friendly and always willing to help." },
+        { en: "Supportive", vi: "Hỗ trợ, giúp đỡ nhau", ipa: "/səˈpɔːrtɪv/", pos: "Adjective", ex: "The teachers at this school are very supportive of their students." },
+        { en: "State-of-the-art facilities", vi: "Cơ sở vật chất hiện đại", ipa: "/ˌsteɪt.əv.ðiˈɑːrt fəˈsɪlətiz/", pos: "Noun Phrase", ex: "The research lab is equipped with state-of-the-art facilities." },
+        { en: "Heavy workload", vi: "Khối lượng công việc lớn", ipa: "/ˈhɛvi ˈwɜːrkloʊd/", pos: "Noun Phrase", ex: "I am dealing with a heavy workload this quarter." },
+        { en: "Meet a deadline", vi: "Kịp hạn chót", ipa: "/miːt ə ˈdɛdlaɪn/", pos: "Verb Phrase", ex: "We must work overtime to meet the deadline." },
+        { en: "Work under pressure", vi: "Làm việc dưới áp lực", ipa: "/wɜːrk ˈʌndər ˈprɛʃər/", pos: "Verb Phrase", ex: "Being able to work under pressure is a required skill for this job." },
+        { en: "Hectic schedule", vi: "Lịch trình bận rộn", ipa: "/ˈhɛktɪk ˈʃɛdjuːl/", pos: "Noun Phrase", ex: "Despite his hectic schedule, he always finds time for his family." },
+        { en: "Up to my ears in work", vi: "Bận ngập đầu", ipa: "/ʌp tu maɪ ɪərz ɪn wɜːrk/", pos: "Idiom", ex: "I can't go out tonight, I'm up to my ears in work." },
+        { en: "Burn the midnight oil", vi: "Thức khuya làm việc/học bài", ipa: "/bɜːrn ðə ˈmɪdnaɪt ɔɪl/", pos: "Idiom", ex: "She burnt the midnight oil to finish her thesis." },
+        { en: "Pass with flying colors", vi: "Đậu điểm cao", ipa: "/pæs wɪð ˈflaɪɪŋ ˈkʌlərz/", pos: "Idiom", ex: "He prepared well and passed the exam with flying colors." },
+        { en: "Challenging but rewarding", vi: "Thử thách nhưng xứng đáng", ipa: "/ˈtʃælɪndʒɪŋ bʌt rɪˈwɔːrdɪŋ/", pos: "Adjective Phrase", ex: "Teaching children is challenging but rewarding." },
+        { en: "Broaden my horizons", vi: "Mở rộng tầm mắt/kiến thức", ipa: "/ˈbrɔːdn maɪ həˈraɪzənz/", pos: "Verb Phrase", ex: "Traveling to new countries helps broaden my horizons." },
+        { en: "Practical experience", vi: "Kinh nghiệm thực tế", ipa: "/ˈpræktɪkl ɪkˈspɪəriəns/", pos: "Noun Phrase", ex: "Internships provide students with valuable practical experience." },
+        { en: "Lucrative income", vi: "Thu nhập cao/hậu hĩnh", ipa: "/ˈluːkrətɪv ˈɪnkʌm/", pos: "Noun Phrase", ex: "The IT industry offers a very lucrative income." },
+        { en: "Make a living", vi: "Kiếm sống", ipa: "/meɪk ə ˈlɪvɪŋ/", pos: "Verb Phrase", ex: "It's becoming harder to make a living as an artist." },
+        { en: "Cover my bills", vi: "Trang trải chi phí sinh hoạt", ipa: "/ˈkʌvər maɪ bɪlz/", pos: "Verb Phrase", ex: "I need a second job to cover my bills." },
+        { en: "Promotion opportunities", vi: "Cơ hội thăng tiến", ipa: "/prəˈmoʊʃn ˌɒpərˈtuːnətiz/", pos: "Noun Phrase", ex: "This company offers great promotion opportunities for hard workers." },
+        { en: "Get promoted", vi: "Được thăng chức", ipa: "/ɡɛt prəˈmoʊtɪd/", pos: "Verb Phrase", ex: "She got promoted to Senior Manager last month." },
+        { en: "Soft skills", vi: "Kỹ năng mềm", ipa: "/sɒft skɪlz/", pos: "Noun Phrase", ex: "Communication and teamwork are essential soft skills." },
+        { en: "Teamwork spirit", vi: "Tinh thần đồng đội", ipa: "/ˈtiːmwɜːrk ˈspɪrɪt/", pos: "Noun Phrase", ex: "The manager values strong teamwork spirit in the office." },
+        { en: "Job satisfaction", vi: "Sự hài lòng trong công việc", ipa: "/dʒɒb ˌsætɪsˈfækʃn/", pos: "Noun Phrase", ex: "For me, job satisfaction is more important than a high salary." },
+        { en: "Stable job", vi: "Công việc ổn định", ipa: "/ˈsteɪbl dʒɒb/", pos: "Noun Phrase", ex: "My parents want me to have a stable job in the government." },
+        { en: "Gap year", vi: "Năm nghỉ phép để trải nghiệm", ipa: "/ɡæp jɪər/", pos: "Noun", ex: "I took a gap year to travel across Europe before starting university." },
+
+        // --- 2. HOMETOWN ---
+        { en: "Located in / Situated in", vi: "Nằm ở...", ipa: "/loʊˈkeɪtɪd ɪn / ˈsɪtʃueɪtɪd ɪn/", pos: "Verb Phrase", ex: "My hometown is situated in the coastal region of Vietnam." },
+        { en: "Coastal city", vi: "Thành phố biển", ipa: "/ˈkoʊstl ˈsɪti/", pos: "Noun Phrase", ex: "Da Nang is a beautiful coastal city famous for its beaches." },
+        { en: "Mountainous area", vi: "Khu vực miền núi", ipa: "/ˈmaʊntənəs ˈeriə/", pos: "Noun Phrase", ex: "Living in a mountainous area offers fresh air but travel can be difficult." },
+        { en: "The suburbs / Outskirts", vi: "Vùng ngoại ô", ipa: "/ðə ˈsʌbɜːrbz / ˈaʊtskɜːrts/", pos: "Noun", ex: "I live in the suburbs, so it takes me 30 minutes to drive to the city center." },
+        { en: "Heart of the city", vi: "Trung tâm thành phố", ipa: "/hɑːrt əv ðə ˈsɪti/", pos: "Noun Phrase", ex: "My apartment is right in the heart of the city." },
+        { en: "Industrial zone", vi: "Khu công nghiệp", ipa: "/ɪnˈdʌstriəl zoʊn/", pos: "Noun Phrase", ex: "There is a large industrial zone near my town providing jobs for locals." },
+        { en: "Tourist attraction", vi: "Điểm thu hút du lịch", ipa: "/ˈtʊərɪst əˈtrækʃn/", pos: "Noun Phrase", ex: "Ha Long Bay is a major tourist attraction in Vietnam." },
+        { en: "Picturesque landscapes", vi: "Phong cảnh đẹp như tranh", ipa: "/ˌpɪktʃəˈrɛsk ˈlændskeɪps/", pos: "Noun Phrase", ex: "Sapa is known for its picturesque landscapes and terraced rice fields." },
+        { en: "Breathtaking view", vi: "Cảnh đẹp nín thở", ipa: "/ˈbrɛθteɪkɪŋ vjuː/", pos: "Noun Phrase", ex: "The hotel room offers a breathtaking view of the ocean." },
+        { en: "Historical sites", vi: "Di tích lịch sử", ipa: "/hɪˈstɔːrɪkl saɪts/", pos: "Noun Phrase", ex: "Hue is famous for its many historical sites and ancient tombs." },
+        { en: "Pace of life", vi: "Nhịp sống", ipa: "/peɪs əv laɪf/", pos: "Noun Phrase", ex: "The pace of life in the countryside is much slower than in the city." },
+        { en: "Hustle and bustle", vi: "Sự hối hả nhộn nhịp", ipa: "/ˈhʌsl ənd ˈbʌsl/", pos: "Idiom/Noun", ex: "I enjoy the hustle and bustle of city life." },
+        { en: "Tranquil / Peaceful", vi: "Yên bình", ipa: "/ˈtræŋkwɪl / ˈpiːsfl/", pos: "Adjective", ex: "I love the tranquil atmosphere of my village." },
+        { en: "Fresh air", vi: "Không khí trong lành", ipa: "/frɛʃ ɛər/", pos: "Noun Phrase", ex: "We went to the park to breathe some fresh air." },
+        { en: "Polluted", vi: "Ô nhiễm", ipa: "/pəˈluːtɪd/", pos: "Adjective", ex: "The air in big cities is becoming heavily polluted." },
+        { en: "Traffic congestion", vi: "Tắc đường", ipa: "/ˈtræfɪk kənˈdʒɛstʃən/", pos: "Noun Phrase", ex: "Traffic congestion is a serious problem during rush hour." },
+        { en: "Commute", vi: "Việc đi lại (từ nhà đến chỗ làm)", ipa: "/kəˈmjuːt/", pos: "Noun/Verb", ex: "My daily commute takes about 45 minutes by bus." },
+        { en: "Crowded / Packed", vi: "Đông đúc", ipa: "/ˈkraʊdɪd / pækt/", pos: "Adjective", ex: "The streets are always crowded during festivals." },
+        { en: "Vibrant", vi: "Sôi động, đầy sức sống", ipa: "/ˈvaɪbrənt/", pos: "Adjective", ex: "Ho Chi Minh City has a vibrant nightlife." },
+        { en: "Dull / Boring", vi: "Nhàm chán", ipa: "/dʌl / ˈbɔːrɪŋ/", pos: "Adjective", ex: "Some people find life in the countryside a bit dull." },
+        { en: "Hospitable", vi: "Hiếu khách", ipa: "/hɒˈspɪtəbl/", pos: "Adjective", ex: "The local people are incredibly hospitable to tourists." },
+        { en: "Friendly and welcoming", vi: "Thân thiện và chào đón", ipa: "/ˈfrɛndli ənd ˈwɛlkəmɪŋ/", pos: "Adjective Phrase", ex: "My neighbors are very friendly and welcoming." },
+        { en: "Sense of community", vi: "Tinh thần cộng đồng", ipa: "/sɛns əv kəˈmjuːnəti/", pos: "Noun Phrase", ex: "There is a strong sense of community in this small town." },
+        { en: "Local delicacies", vi: "Đặc sản địa phương", ipa: "/ˈloʊkl ˈdɛlɪkəsiz/", pos: "Noun Phrase", ex: "You must try the local delicacies when you visit Hanoi." },
+        { en: "Street food", vi: "Đồ ăn đường phố", ipa: "/striːt fuːd/", pos: "Noun Phrase", ex: "Vietnam is famous for its delicious and cheap street food." },
+        { en: "Amenities", vi: "Các tiện ích", ipa: "/əˈmiːnətiz/", pos: "Noun", ex: "The apartment complex has excellent amenities like a pool and gym." },
+        { en: "Entertainment centers", vi: "Khu vui chơi giải trí", ipa: "/ˌɛntərˈteɪnmənt ˈsɛntərz/", pos: "Noun Phrase", ex: "Young people often hang out at entertainment centers on weekends." },
+        { en: "Public transport system", vi: "Hệ thống giao thông công cộng", ipa: "/ˈpʌblɪk ˈtrænspɔːrt ˈsɪstəm/", pos: "Noun Phrase", ex: "The city needs to improve its public transport system." },
+        { en: "Shopping mall", vi: "Trung tâm thương mại", ipa: "/ˈʃɒpɪŋ mɔːl/", pos: "Noun Phrase", ex: "We spent the whole afternoon at the shopping mall." },
+        { en: "Undergo dramatic changes", vi: "Trải qua thay đổi mạnh mẽ", ipa: "/ˌʌndərˈɡoʊ drəˈmætɪk ˈtʃeɪndʒɪz/", pos: "Verb Phrase", ex: "My hometown has undergone dramatic changes in the last decade." },
+
+        // --- 3. ACCOMMODATION ---
+        { en: "Apartment block / Flat", vi: "Chung cư/Căn hộ", ipa: "/əˈpɑːrtmənt blɒk / flæt/", pos: "Noun", ex: "I live in a modern apartment block near the river." },
+        { en: "Terraced house", vi: "Nhà phố (liền kề)", ipa: "/ˈtɛrəst haʊs/", pos: "Noun", ex: "Terraced houses are very common in the UK." },
+        { en: "Detached house", vi: "Nhà riêng biệt lập", ipa: "/dɪˈtætʃt haʊs/", pos: "Noun", ex: "A detached house offers more privacy than an apartment." },
+        { en: "Dormitory", vi: "Ký túc xá", ipa: "/ˈdɔːrmətɔːri/", pos: "Noun", ex: "Living in a dormitory is a great way to make friends at college." },
+        { en: "Rented accommodation", vi: "Nhà thuê", ipa: "/ˈrɛntɪd əˌkɒməˈdeɪʃn/", pos: "Noun Phrase", ex: "Students usually live in rented accommodation." },
+        { en: "Residential area", vi: "Khu dân cư", ipa: "/ˌrɛzɪˈdɛnʃl ˈeriə/", pos: "Noun Phrase", ex: "My house is in a quiet residential area." },
+        { en: "Convenient location", vi: "Vị trí thuận tiện", ipa: "/kənˈviːniənt loʊˈkeɪʃn/", pos: "Noun Phrase", ex: "The hotel has a convenient location near the subway station." },
+        { en: "Within walking distance of", vi: "Gần (có thể đi bộ tới)", ipa: "/wɪˈðɪn ˈwɔːkɪŋ ˈdɪstəns əv/", pos: "Prepositional Phrase", ex: "My office is within walking distance of my house." },
+        { en: "Prime location", vi: "Vị trí đắc địa", ipa: "/praɪm loʊˈkeɪʃn/", pos: "Noun Phrase", ex: "The shop is in a prime location on the main street." },
+        { en: "Overlook", vi: "Nhìn ra (công viên/hồ)", ipa: "/ˌoʊvərˈlʊk/", pos: "Verb", ex: "My bedroom window overlooks a beautiful park." },
+        { en: "Spacious", vi: "Rộng rãi", ipa: "/ˈspeɪʃəs/", pos: "Adjective", ex: "The living room is very spacious and bright." },
+        { en: "Cramped", vi: "Chật chội", ipa: "/kræmpt/", pos: "Adjective", ex: "The apartment is a bit cramped for a family of four." },
+        { en: "Cozy", vi: "Ấm cúng", ipa: "/ˈkoʊzi/", pos: "Adjective", ex: "I love my small, cozy bedroom." },
+        { en: "Airy", vi: "Thoáng khí", ipa: "/ˈeri/", pos: "Adjective", ex: "With large windows, the room feels very airy." },
+        { en: "Stuffy", vi: "Bí bách", ipa: "/ˈstʌfi/", pos: "Adjective", ex: "It gets very stuffy in here during the summer." },
+        { en: "Fully furnished", vi: "Đầy đủ nội thất", ipa: "/ˈfʊli ˈfɜːrnɪʃt/", pos: "Adjective", ex: "I rented a fully furnished apartment to save money on furniture." },
+        { en: "Modern appliances", vi: "Thiết bị hiện đại", ipa: "/ˈmɒdərn əˈplaɪənsɪz/", pos: "Noun Phrase", ex: "The kitchen is equipped with modern appliances." },
+        { en: "Decorate", vi: "Trang trí", ipa: "/ˈdɛkəreɪt/", pos: "Verb", ex: "I like to decorate my room with plants and paintings." },
+        { en: "Renovate", vi: "Sửa sang, nâng cấp", ipa: "/ˈrɛnəveɪt/", pos: "Verb", ex: "We plan to renovate the bathroom next year." },
+        { en: "Balcony", vi: "Ban công", ipa: "/ˈbælkəni/", pos: "Noun", ex: "I often drink coffee on the balcony in the morning." },
+        { en: "House chores", vi: "Việc nhà", ipa: "/haʊs tʃɔːrz/", pos: "Noun", ex: "My brother and I share the house chores." },
+        { en: "Do the laundry", vi: "Giặt đồ", ipa: "/duː ðə ˈlɔːndri/", pos: "Verb Phrase", ex: "I usually do the laundry on Sundays." },
+        { en: "Tidy up", vi: "Dọn dẹp", ipa: "/ˈtaɪdi ʌp/", pos: "Verb Phrase", ex: "Please tidy up your room before guests arrive." },
+        { en: "Family gathering", vi: "Tụ họp gia đình", ipa: "/ˈfæməli ˈɡæðərɪŋ/", pos: "Noun Phrase", ex: "We have a family gathering every Lunar New Year." },
+        { en: "Privacy", vi: "Sự riêng tư", ipa: "/ˈprɪvəsi/", pos: "Noun", ex: "Everyone needs some privacy now and then." },
+        { en: "Unwind / Chill out", vi: "Thư giãn", ipa: "/ˌʌnˈwaɪnd / tʃɪl aʊt/", pos: "Verb", ex: "Listening to music helps me unwind after work." },
+        { en: "Housewarming party", vi: "Tiệc tân gia", ipa: "/ˈhaʊswɔːrmɪŋ ˈpɑːrti/", pos: "Noun Phrase", ex: "They invited us to their housewarming party." },
+        { en: "Get on well with neighbors", vi: "Hòa thuận với hàng xóm", ipa: "/ɡɛt ɒn wɛl wɪð ˈneɪbərz/", pos: "Verb Phrase", ex: "Luckily, we get on very well with our neighbors." },
+        { en: "Noisy neighbors", vi: "Hàng xóm ồn ào", ipa: "/ˈnɔɪzi ˈneɪbərz/", pos: "Noun Phrase", ex: "Having noisy neighbors can be really annoying." },
+        { en: "Feel at home", vi: "Cảm thấy thoải mái như ở nhà", ipa: "/fiːl æt hoʊm/", pos: "Idiom", ex: "Please sit down and feel at home." },
+
+        // --- 4. LINKING WORDS ---
+        { en: "Actually / To be honest", vi: "Thật ra thì / Thành thật mà nói", ipa: "/ˈæktʃuəli / tuː bi ˈɒnɪst/", pos: "Adverb/Phrase", ex: "Actually, I haven't finished the report yet." },
+        { en: "Generally speaking", vi: "Nói chung là", ipa: "/ˈdʒɛnərəli ˈspiːkɪŋ/", pos: "Phrase", ex: "Generally speaking, the weather here is quite nice." },
+        { en: "What I like most about X is", vi: "Điều tôi thích nhất ở X là...", ipa: "/wɒt aɪ laɪk moʊst əˈbaʊt ... ɪz/", pos: "Phrase", ex: "What I like most about this job is the flexibility." },
+        { en: "I’m really keen on", vi: "Tôi rất thích...", ipa: "/aɪm ˈrɪəli kiːn ɒn/", pos: "Phrase", ex: "I’m really keen on playing football." },
+        { en: "It allows me to", vi: "Nó cho phép tôi làm gì...", ipa: "/ɪt əˈlaʊz miː tuː/", pos: "Phrase", ex: "This software allows me to work much faster." },
+        { en: "Once in a blue moon", vi: "Hiếm khi", ipa: "/wʌns ɪn ə bluː muːn/", pos: "Idiom", ex: "I go to the cinema once in a blue moon." },
+        { en: "Day in, day out", vi: "Ngày qua ngày", ipa: "/deɪ ɪn, deɪ aʊt/", pos: "Idiom", ex: "He does the same boring job day in, day out." },
+        { en: "For the most part", vi: "Phần lớn là", ipa: "/fɔːr ðə moʊst pɑːrt/", pos: "Phrase", ex: "For the most part, I agree with your opinion." },
+        { en: "On top of that", vi: "Thêm vào đó", ipa: "/ɒn tɒp əv ðæt/", pos: "Phrase", ex: "The job is interesting, and on top of that, the pay is good." },
+        { en: "Last but not least", vi: "Cuối cùng nhưng không kém phần quan trọng", ipa: "/læst bʌt nɒt liːst/", pos: "Phrase", ex: "And last but not least, I'd like to thank my parents." }
     ];
 
     let vocabularyList = initialVocabulary.map(item => ({...item, status: 'new'}));
@@ -694,7 +637,7 @@ Huyền_Speaking_1-100
     
     // Global settings for audio
     let selectedVoiceIndex = -1; // -1 means auto-detect
-    let readingRate = 0.6; // Default slow speed
+    let readingRate = 0.7; // Default slow speed
 
     // Elements
     const elements = {
@@ -702,7 +645,7 @@ Huyền_Speaking_1-100
         enText: document.getElementById('en-text'),
         ipaText: document.getElementById('ipa-text'), // New element for IPA
         posText: document.getElementById('pos-text'),
-        // Remove exText since data doesn't have examples
+        exText: document.getElementById('example-text'),
         answerArea: document.getElementById('answer-area'),
         btnReveal: document.getElementById('btn-reveal'),
         reviewActions: document.getElementById('review-actions'),
@@ -838,7 +781,16 @@ Huyền_Speaking_1-100
         elements.vnText.innerText = item.vi;
         elements.enText.innerText = item.en;
         elements.posText.innerText = item.pos;
-        // elements.exText.innerText = ""; // REMOVED to fix error
+        
+        // FIX: Check if exText element exists and if item has example data
+        if(elements.exText) {
+             if(item.ex) {
+                elements.exText.innerText = `Ví dụ: "${item.ex}"`;
+                elements.exText.style.display = 'block';
+            } else {
+                elements.exText.style.display = 'none';
+            }
+        }
         
         // Cập nhật IPA
         if (item.ipa) {
