@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>120 Collocations - 3 Phần</title>
+    <title>120 Collocations - 6 Phần</title>
     <style>
         :root {
             --primary-color: #d32f2f;
@@ -413,9 +413,12 @@
     <!-- Deck Selector -->
     <div class="deck-selector-container">
         <select id="deck-select" class="deck-select" onchange="changeDeck()">
-            <option value="0">Phần 1: Từ 1 - 50</option>
-            <option value="1">Phần 2: Từ 51 - 100</option>
-            <option value="2">Phần 3: Từ 101 - 120</option>
+            <option value="0">Phần 1: Từ 1 - 20</option>
+            <option value="1">Phần 2: Từ 21 - 40</option>
+            <option value="2">Phần 3: Từ 41 - 60</option>
+            <option value="3">Phần 4: Từ 61 - 80</option>
+            <option value="4">Phần 5: Từ 81 - 100</option>
+            <option value="5">Phần 6: Từ 101 - 120</option>
         </select>
     </div>
 
@@ -427,7 +430,7 @@
             <button class="btn-icon" id="btn-review" onclick="toggleReviewMode()" title="Ôn tập từ chưa thuộc">🧠</button>
             <button class="btn-icon" onclick="shuffleVocabulary()" title="Đảo thứ tự">🔀</button>
         </div>
-        <div id="progress" class="progress-bar">CÂU 1 / 50</div>
+        <div id="progress" class="progress-bar">CÂU 1 / 20</div>
     </div>
 
     <!-- Status Badge -->
@@ -678,9 +681,12 @@
     // Nhưng để đơn giản cho logic render, ta sẽ dùng slice từ allVocabulary
     let currentDeckIndex = 0; // 0: 1-50, 1: 51-100, 2: 101-120
     const decks = [
-        { start: 0, end: 50, name: "Phần 1: Từ 1 - 50" },
-        { start: 50, end: 100, name: "Phần 2: Từ 51 - 100" },
-        { start: 100, end: 120, name: "Phần 3: Từ 101 - 120" }
+        { start: 0, end: 20, name: "Phần 1: Từ 1 - 20" },
+        { start: 20, end: 40, name: "Phần 2: Từ 21 - 40" },
+        { start: 40, end: 60, name: "Phần 3: Từ 41 - 60" },
+        { start: 60, end: 80, name: "Phần 4: Từ 61 - 80" },
+        { start: 80, end: 100, name: "Phần 5: Từ 81 - 100" },
+        { start: 100, end: 120, name: "Phần 6: Từ 101 - 120" }
     ];
 
     // Init current list based on deck 0
